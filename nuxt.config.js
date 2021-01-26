@@ -98,7 +98,6 @@ export default {
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/amp',
     '@nuxtjs/netlify-files',
     '@nuxtjs/gtm',
   ],
@@ -118,6 +117,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/sitemap',
+    '@nuxtjs/amp',
   ],
   /*
    ** Sitemap
