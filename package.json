@@ -33,6 +33,7 @@
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/manifest": "^3.0.0-beta.16",
     "@nuxtjs/sitemap": "^2.4.0",
+    "@nuxtjs/amp": "^0.5.4",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-nuxt": "^1.0.0",
