@@ -117,7 +117,6 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/sitemap',
-    '@nuxtjs/amp',
   ],
   /*
    ** Sitemap
