@@ -171,7 +171,7 @@ export default {
           const fileId = Math.floor(Math.random() * 999)
           const fileName = `${year}/${month}/owl_${fileId}_${this.user.imgSrc.name}`
           const downloadURL =
-            'https://fcowl.s3-ap-northeast-1.amazonaws.com/' + fileName
+            'https://d15reupfu87sxr.cloudfront.net/' + fileName
           this.$store
             .dispatch('album/addPhoto', {
               month,
