@@ -1,37 +1,37 @@
 <template lang="pug">
 #top
   Header
-  //- section#blog
-  //-   h2
-  //-     BlogLogo(data-text='地下放送オウル・ウォッチ')
-  //-   .swiper
-  //-     .swiper-wrapper
-  //-       .swiper-slide.swiper-lazy(
-  //-         v-for='(article, index) in get_wp()',
-  //-         :key='article.id',
-  //-         :data-background='article.better_featured_image.source_url'
-  //-       )
-  //-         .swiper-lazy-preloader
-  //-         NuxtLink(:to='`/article/${article.id}/`')
-  //-           New.new(
-  //-             v-if='(new Date() - new Date(article.date)) / 86400000 < 7'
-  //-           )
-  //-           h3(v-html='article.title.rendered')
-  //-     .swiper-button-prev prev
-  //-     .swiper-button-next next
-  section.blocks
-    h2 Album
-    template(v-for='thisYear in get_AllDatePhotos()')
-      template(v-for='thisMonth in thisYear[1]')
-        h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
-          span.title {{ `${thisYear[0]}/${thisMonth}` }}
-        template(v-for='photo in extractMonth(`${thisYear[0]}/${thisMonth}`)')
-          Block(
-            :key='photo.id',
-            :id='photo.id',
-            :postMonth='photo.postMonth',
-            :imgSrc='photo.imgSrc'
-          )
+  section#blog
+    h2
+      BlogLogo(data-text='地下放送オウル・ウォッチ')
+    .swiper
+      .swiper-wrapper
+        .swiper-slide.swiper-lazy(
+          v-for='(article, index) in get_wp()',
+          :key='article.id',
+          :data-background='article.better_featured_image.source_url'
+        )
+          .swiper-lazy-preloader
+          NuxtLink(:to='`/article/${article.id}/`')
+            New.new(
+              v-if='(new Date() - new Date(article.date)) / 86400000 < 7'
+            )
+            h3(v-html='article.title.rendered')
+      .swiper-button-prev prev
+      .swiper-button-next next
+  //- section.blocks
+  //-   h2 Album
+  //-   template(v-for='thisYear in get_AllDatePhotos()')
+  //-     template(v-for='thisMonth in thisYear[1]')
+  //-       h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
+  //-         span.title {{ `${thisYear[0]}/${thisMonth}` }}
+  //-       template(v-for='photo in extractMonth(`${thisYear[0]}/${thisMonth}`)')
+  //-         Block(
+  //-           :key='photo.id',
+  //-           :id='photo.id',
+  //-           :postMonth='photo.postMonth',
+  //-           :imgSrc='photo.imgSrc'
+  //-         )
   section.calendar
     h2 Calendar
     iframe(
@@ -62,31 +62,31 @@ export default {
     About,
     AboutButton,
   },
-  // async fetch({ store, error }) {
-  //   await import('~/modules/wp')
-  //     .then(async (module) => {
-  //       const wp = new module.WpApi()
-  //       // 記事取得
-  //       const downloadLatestPage = await wp.downloadLatestPage()
-  //       store.commit('wp/set_wp', downloadLatestPage)
-  //     })
-  //     .catch((e) => {
-  //       return error({ statusCode: 404 })
-  //     })
-  // },
-  // async asyncData({ error }) {
-  //   const result = {}
-  //   await import('~/modules/wp')
-  //     .then(async (module) => {
-  //       const wp = new module.WpApi()
-  //       // About記事取得
-  //       result.downloadPage = await wp.downloadPage(429)
-  //     })
-  //     .catch((e) => {
-  //       return error({ statusCode: 404 })
-  //     })
-  //   return result
-  // },
+  async fetch({ store, error }) {
+    await import('~/modules/wp')
+      .then(async (module) => {
+        const wp = new module.WpApi()
+        // 記事取得
+        const downloadLatestPage = await wp.downloadLatestPage()
+        store.commit('wp/set_wp', downloadLatestPage)
+      })
+      .catch((e) => {
+        return error({ statusCode: 404 })
+      })
+  },
+  async asyncData({ error }) {
+    const result = {}
+    await import('~/modules/wp')
+      .then(async (module) => {
+        const wp = new module.WpApi()
+        // About記事取得
+        result.downloadPage = await wp.downloadPage(429)
+      })
+      .catch((e) => {
+        return error({ statusCode: 404 })
+      })
+    return result
+  },
   data() {
     return {
       url: process.env.BASE_URL,
@@ -102,20 +102,20 @@ export default {
   },
   mounted() {
     // アルバムデータ取得
-    this.$store.dispatch('album/AllDatePhotos').then(() => {
-      for (let y = 0; y < this.get_AllDatePhotos().length; y++) {
-        // 該当年の分だけデータを取得
-        const year = this.get_AllDatePhotos()[y][0]
-        for (let m = 0; m < this.get_AllDatePhotos()[y][1].length; m++) {
-          // 該当月の分だけデータを取得
-          const month = this.get_AllDatePhotos()[y][1][m]
-          this.$store.dispatch('album/AllPhotos', {
-            year,
-            month,
-          })
-        }
-      }
-    })
+    // this.$store.dispatch('album/AllDatePhotos').then(() => {
+    //   for (let y = 0; y < this.get_AllDatePhotos().length; y++) {
+    //     // 該当年の分だけデータを取得
+    //     const year = this.get_AllDatePhotos()[y][0]
+    //     for (let m = 0; m < this.get_AllDatePhotos()[y][1].length; m++) {
+    //       // 該当月の分だけデータを取得
+    //       const month = this.get_AllDatePhotos()[y][1][m]
+    //       this.$store.dispatch('album/AllPhotos', {
+    //         year,
+    //         month,
+    //       })
+    //     }
+    //   }
+    // })
     new Swiper('.swiper', {
       preloadImages: false,
       lazy: {
