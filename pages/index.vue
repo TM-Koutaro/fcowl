@@ -1,24 +1,24 @@
 <template lang="pug">
 #top
   Header
-  section#blog
-    h2
-      BlogLogo(data-text='地下放送オウル・ウォッチ')
-    .swiper
-      .swiper-wrapper
-        .swiper-slide.swiper-lazy(
-          v-for='(article, index) in get_wp()',
-          :key='article.id',
-          :data-background='article.better_featured_image.source_url'
-        )
-          .swiper-lazy-preloader
-          NuxtLink(:to='`/article/${article.id}/`')
-            New.new(
-              v-if='(new Date() - new Date(article.date)) / 86400000 < 7'
-            )
-            h3(v-html='article.title.rendered')
-      .swiper-button-prev prev
-      .swiper-button-next next
+  //- section#blog
+  //-   h2
+  //-     BlogLogo(data-text='地下放送オウル・ウォッチ')
+  //-   .swiper
+  //-     .swiper-wrapper
+  //-       .swiper-slide.swiper-lazy(
+  //-         v-for='(article, index) in get_wp()',
+  //-         :key='article.id',
+  //-         :data-background='article.better_featured_image.source_url'
+  //-       )
+  //-         .swiper-lazy-preloader
+  //-         NuxtLink(:to='`/article/${article.id}/`')
+  //-           New.new(
+  //-             v-if='(new Date() - new Date(article.date)) / 86400000 < 7'
+  //-           )
+  //-           h3(v-html='article.title.rendered')
+  //-     .swiper-button-prev prev
+  //-     .swiper-button-next next
   //- section.blocks
   //-   h2 Album
   //-   template(v-for='thisYear in get_AllDatePhotos()')
@@ -40,8 +40,8 @@
       scrolling='no'
     )
   BgAnimation
-  AboutButton(:title='downloadPage.title.rendered')
-  About(:pageSingle='downloadPage')
+  //- AboutButton(:title='downloadPage.title.rendered')
+  //- About(:pageSingle='downloadPage')
   SideButton(:url='url')
   Loading
   Footer
@@ -62,31 +62,31 @@ export default {
     About,
     AboutButton,
   },
-  async fetch({ store, error }) {
-    await import('~/modules/wp')
-      .then(async (module) => {
-        const wp = new module.WpApi()
-        // 記事取得
-        const downloadLatestPage = await wp.downloadLatestPage()
-        store.commit('wp/set_wp', downloadLatestPage)
-      })
-      .catch((e) => {
-        return error({ statusCode: 404 })
-      })
-  },
-  async asyncData({ error }) {
-    const result = {}
-    await import('~/modules/wp')
-      .then(async (module) => {
-        const wp = new module.WpApi()
-        // About記事取得
-        result.downloadPage = await wp.downloadPage(429)
-      })
-      .catch((e) => {
-        return error({ statusCode: 404 })
-      })
-    return result
-  },
+  // async fetch({ store, error }) {
+  //   await import('~/modules/wp')
+  //     .then(async (module) => {
+  //       const wp = new module.WpApi()
+  //       // 記事取得
+  //       const downloadLatestPage = await wp.downloadLatestPage()
+  //       store.commit('wp/set_wp', downloadLatestPage)
+  //     })
+  //     .catch((e) => {
+  //       return error({ statusCode: 404 })
+  //     })
+  // },
+  // async asyncData({ error }) {
+  //   const result = {}
+  //   await import('~/modules/wp')
+  //     .then(async (module) => {
+  //       const wp = new module.WpApi()
+  //       // About記事取得
+  //       result.downloadPage = await wp.downloadPage(429)
+  //     })
+  //     .catch((e) => {
+  //       return error({ statusCode: 404 })
+  //     })
+  //   return result
+  // },
   data() {
     return {
       url: process.env.BASE_URL,
