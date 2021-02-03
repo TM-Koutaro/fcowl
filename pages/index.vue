@@ -40,8 +40,8 @@
       scrolling='no'
     )
   BgAnimation
-  //- AboutButton(:title='downloadPage.title.rendered')
-  //- About(:pageSingle='downloadPage')
+  AboutButton(:title='downloadPage.title.rendered')
+  About(:pageSingle='downloadPage')
   SideButton(:url='url')
   Loading
   Footer
