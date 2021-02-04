@@ -14,7 +14,7 @@ footer {
   position: relative;
   z-index: 10;
   font-size: 1rem;
-  color: $white;
+  color: $main_color;
   .app-notify {
     width: 700px;
     margin: 0 auto;

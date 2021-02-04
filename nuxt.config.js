@@ -25,7 +25,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-mode
    */
   loading: {
-    color: '#d4af37',
+    color: '#968388',
     height: '5px',
   },
   /*

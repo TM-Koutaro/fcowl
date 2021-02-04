@@ -21,7 +21,8 @@ export default {
 <style lang="scss" scoped>
 .header {
   padding: 80px 0;
-  color: $white;
+  color: $main_color;
+
   h1 {
     display: flex;
     justify-content: center;

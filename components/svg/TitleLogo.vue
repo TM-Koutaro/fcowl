@@ -6,6 +6,6 @@
 
 <style lang="scss" scoped>
 path {
-  fill: $white;
+  fill: $main_color;
 }
 </style>

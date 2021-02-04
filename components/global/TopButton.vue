@@ -26,21 +26,17 @@ export default {
     line-height: 70px;
     background: $white;
     font-size: 1.4rem;
-    color: $black;
+    color: $main_color;
     position: relative;
     text-decoration: none;
     text-transform: uppercase;
-    border: 0 solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-    outline: 1px solid;
+    border: 2px solid $main_color;
+    box-sizing: border-box;
     text-shadow: none;
     margin: 0 auto;
     border-radius: 10px;
     &:hover {
       cursor: pointer;
-      border: 1px solid;
-      outline-color: rgba(255, 255, 255, 0);
-      outline-offset: 15px;
     }
   }
   @include mq-down(md) {

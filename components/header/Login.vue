@@ -1,13 +1,15 @@
 <template lang="pug">
 .login
   template(v-if='!get_status()')
-    a(href="#" @click='twitterLogin()')
+    a(href='#', @click='twitterLogin()')
       | Login
       Twitter.login__twitter
   template(v-if='get_status()')
-    a(href="#" @click='twitterLogout()')
+    a(href='#', @click='twitterLogout()')
       | Logout
-      span.login__face(:style='{ backgroundImage: "url(" + get_status().photoURL + ")" }')
+      span.login__face(
+        :style='{ backgroundImage: "url(" + get_status().photoURL + ")" }'
+      )
 </template>
 
 <script>
@@ -43,13 +45,12 @@ export default {
   height: 50px;
   line-height: 50px;
   font-size: 2rem;
-  color: $white;
+  color: $main_color;
   font-weight: bold;
   font-family: 'Harry Potter Regular', sans-serif;
   text-align: center;
   max-width: 100%;
   z-index: 100;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
   margin: 50px auto 0;
   &__face,
   &__twitter {
@@ -66,6 +67,7 @@ export default {
   &__twitter {
     height: 40px;
     vertical-align: middle;
+    fill: $main_color;
   }
   &__face {
     display: inline-block;

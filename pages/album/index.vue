@@ -151,7 +151,7 @@ export default {
 <style lang="scss">
 #album {
   h2 {
-    color: $white;
+    color: $main_color;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
@@ -160,13 +160,14 @@ export default {
   .album {
     width: 960px;
     margin: 0 auto;
-    color: $black;
+    color: $main_color;
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
     background: $white;
     word-wrap: break-word;
     margin-top: 25px;
+    border: 2px solid $main_color;
     &__img {
       width: 100%;
       vertical-align: top;
@@ -198,13 +199,11 @@ export default {
 
   @include mq-down(md) {
     h2 {
-      font-size: get_vw(14);
+      font-size: get_vw(16);
     }
 
     .album {
       padding: 0 0 10px;
-      border: none;
-      border-bottom: 1px solid $light_gray;
       margin-top: 15px;
       &__message,
       &__name {

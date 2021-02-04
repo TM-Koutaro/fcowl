@@ -174,7 +174,7 @@ export default {
     text-align: center;
     font-weight: bold;
     color: $white;
-    background: $gold;
+    background: $main_color;
     position: relative;
     z-index: 10;
     svg {
@@ -205,6 +205,7 @@ export default {
   .article {
     width: 100%;
     background: $white;
+    color: $main_color;
     box-sizing: border-box;
     margin: 0 auto;
     position: relative;
@@ -215,13 +216,13 @@ export default {
       font-size: 2.7rem;
       line-height: 1.2;
       font-weight: bold;
-      border-bottom: $black solid 5px;
+      border-bottom: $main_color solid 5px;
       padding-bottom: 10px;
     }
     .time {
       margin-top: 5px;
       padding-top: 10px;
-      border-top: 5px solid $black;
+      border-top: 5px solid $main_color;
       text-align: right;
       font-weight: bold;
     }
@@ -235,7 +236,7 @@ export default {
         max-width: 800px;
         height: auto;
         margin: 30px 0 10px;
-        border: 1px solid $black;
+        border: 1px solid $main_color;
         box-sizing: border-box;
         padding: 5px;
       }
@@ -260,10 +261,10 @@ export default {
     }
     &__twitter {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 40px;
       svg {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
         border-radius: 100%;
         background: $twitter_color;
         padding: 10px;
@@ -293,9 +294,11 @@ export default {
         }
       }
       &__twitter {
+        margin-top: get_vw(30);
+
         svg {
-          width: get_vw(40);
-          height: get_vw(40);
+          width: get_vw(30);
+          height: get_vw(30);
         }
       }
       &__writer {
@@ -310,7 +313,7 @@ export default {
     h2 {
       font-size: 2rem;
       font-weight: bold;
-      color: $white;
+      color: $main_color;
     }
     &__articles {
       display: flex;
@@ -343,7 +346,7 @@ export default {
         font-size: 1.5rem;
         line-height: 1.5;
         font-weight: bold;
-        color: $black;
+        color: $main_color;
         text-align: center;
       }
       &:hover {

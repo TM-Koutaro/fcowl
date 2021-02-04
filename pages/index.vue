@@ -257,7 +257,8 @@ export default {
         font-size: 1.2rem;
         font-weight: bold;
         background: $white;
-        color: $black;
+        color: $main_color;
+        border-bottom: 5px solid $main_color;
         padding: 10px 0;
         position: absolute;
         left: 0;
@@ -320,7 +321,7 @@ export default {
     position: relative;
     font-size: 3rem;
     font-weight: bold;
-    color: $white;
+    color: $main_color;
     text-align: center;
     width: 100%;
     margin-bottom: 30px;
@@ -328,7 +329,7 @@ export default {
       width: 400px;
       text,
       path {
-        fill: $white;
+        fill: $main_color;
       }
     }
   }
@@ -348,14 +349,14 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 5px solid $gold;
+      border: 5px solid $main_color;
       box-sizing: border-box;
       .title {
         font-size: 2rem;
         font-weight: bold;
         position: relative;
         z-index: 10;
-        color: $gold;
+        color: $main_color;
       }
     }
   }
@@ -367,7 +368,7 @@ export default {
       height: 500px;
       margin: 0 auto;
       border-radius: 10px;
-      border: 5px solid $gold;
+      border: 5px solid $main_color;
       box-sizing: border-box;
     }
   }
@@ -387,7 +388,7 @@ export default {
       &-slide {
         height: get_vw(200);
         h3 {
-          font-size: 1rem;
+          font-size: get_vw(14);
         }
       }
       &-button-prev,
