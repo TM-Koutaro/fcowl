@@ -6,6 +6,7 @@
     br
     NuxtLink(to='/') トップページに戻る
   Loading
+  BgAnimation
   Footer
 </template>
 
@@ -80,17 +81,24 @@ export default {
 
 <style lang="scss" scoped>
 h2 {
-  font-size: 2rem;
+  width: 500px;
+  font-size: 1.8rem;
+  background: $black;
+  padding: 40px 0;
   color: $white;
   text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
   a {
     display: inline-block;
     color: inherit;
-    font-size: 1.5rem;
-    margin-top: 40px;
+    font-size: 1.3rem;
+    margin-top: 30px;
   }
 
   @include mq-down(md) {
+    width: 90%;
+    padding: 30px 0;
     font-size: get_vw(14);
     a {
       font-size: get_vw(12);
