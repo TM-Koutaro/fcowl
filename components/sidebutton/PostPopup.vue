@@ -159,12 +159,13 @@ export default {
     submit() {
       console.log(this.user.imgSrc)
       if (window.confirm('投稿しますか？')) {
-        if (this.user.imgSrc === '') window.alert('画像が添付されておりません')
-        else if (this.user.yearMonth === '' || this.user.yearMonth === null)
+        if (this.user.imgSrc === '') {
+          window.alert('画像が添付されておりません')
+        } else if (this.user.yearMonth === '' || this.user.yearMonth === null) {
           window.alert('掲載日が指定されておりません')
-        else if (this.user.message === '')
+        } else if (this.user.message === '') {
           window.alert('メッセージ内容が入力されておりません')
-        else {
+        } else {
           document.getElementById('loading').classList.add('on')
           const month = new Date(this.user.yearMonth).getMonth() + 1
           const year = new Date(this.user.yearMonth).getFullYear()

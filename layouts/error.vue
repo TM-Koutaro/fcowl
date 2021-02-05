@@ -1,7 +1,7 @@
 <template lang="pug">
 #error
   Header
-  h2 
+  h2
     | エラーが発生しました。
     br
     NuxtLink(to='/') トップページに戻る

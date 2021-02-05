@@ -147,7 +147,7 @@ export default {
     addPhoto({ commit }, data) {
       return new Promise((resolve) => {
         console.log('addPhoto')
-        const rootName = db.collection(`owl`).doc(String(data.year))
+        const rootName = db.collection('owl').doc(String(data.year))
         rootName
           .set({ [data.month]: true }, { merge: true })
           .then((ref) => {
@@ -202,7 +202,7 @@ export default {
           .delete()
           .then(() => {
             if (state.thisMonthAlbumOtherPhotos.length === 0) {
-              db.collection(`owl`)
+              db.collection('owl')
                 .doc(data.year)
                 .update({
                   [data.month]: firebase.firestore.FieldValue.delete(),

@@ -147,7 +147,9 @@ export default {
       const thisMonthhArray = []
       this.get_AllPhotos().forEach((e) => {
         e.filter((v) => {
-          if (v.postMonth === thisMonth) thisMonthhArray.push(v)
+          if (v.postMonth === thisMonth) {
+            thisMonthhArray.push(v)
+          }
         })
       })
       return thisMonthhArray
