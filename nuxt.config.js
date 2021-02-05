@@ -93,9 +93,20 @@ export default {
     '~/components',
   ],
   /*
+   **  fork-ts-checker-webpack-plugin
+   */
+  // typescript: {
+  //   typeCheck: {
+  //     eslint: {
+  //       files: './src/**/*.{ts,js,vue}'
+  //     }
+  //   }
+  // },
+  /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/netlify-files',
@@ -138,7 +149,8 @@ export default {
    */
   env: {
     title: 'Order Of The Owl',
-    description: 'ファイナルファンタジーXIV Shinryu World にて活動中の Order Of The Owl Free Company サイトです。',
+    description:
+      'ファイナルファンタジーXIV Shinryu World にて活動中の Order Of The Owl Free Company サイトです。',
     REST_API_URL,
     FB_API_KEY,
     FB_AUTH_DOMAIN,
