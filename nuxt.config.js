@@ -93,16 +93,6 @@ export default {
     '~/components',
   ],
   /*
-   **  fork-ts-checker-webpack-plugin
-   */
-  // typescript: {
-  //   typeCheck: {
-  //     eslint: {
-  //       files: './src/**/*.{ts,js,vue}'
-  //     }
-  //   }
-  // },
-  /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
