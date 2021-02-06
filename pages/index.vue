@@ -7,7 +7,7 @@
     .swiper
       .swiper-wrapper
         .swiper-slide.swiper-lazy(
-          v-for='(article, index) in get_wp()',
+          v-for='(article, index) in getWp()',
           :key='article.id',
           :data-background='article.better_featured_image.source_url'
         )
@@ -68,7 +68,7 @@ export default {
         const wp = new module.WpApi()
         // 記事取得
         const downloadLatestPage = await wp.downloadLatestPage()
-        store.commit('wp/set_wp', downloadLatestPage)
+        store.commit('wp/setWp', downloadLatestPage)
       })
       .catch((e) => {
         return error({ statusCode: 404 })
@@ -96,7 +96,7 @@ export default {
     ...mapGetters({
       get_AllDatePhotos: 'album/get_AllDatePhotos',
       get_AllPhotos: 'album/get_AllPhotos',
-      get_wp: 'wp/get_wp',
+      getWp: 'wp/getWp',
       get_status: 'login/get_status',
     }),
   },
