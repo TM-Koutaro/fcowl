@@ -15,6 +15,14 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
+    'space-before-function-paren': 0,
+    'comma-dangle': ['error', {
+      'arrays': 'always',
+      'objects': 'always',
+      'imports': 'never',
+      'exports': 'never',
+      'functions': 'never'
+    }],
     'no-console': 'off',
     'no-new': 0,
   },
