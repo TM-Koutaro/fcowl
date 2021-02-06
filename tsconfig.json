@@ -8,6 +8,7 @@
       "ESNext.AsyncIterable",
       "DOM"
     ],
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
@@ -27,6 +28,15 @@
       "@nuxt/types"
     ]
   },
+  "include": [
+    "components/**/*.ts",
+    "components/**/*.vue",
+    "layouts/**/*.ts",
+    "layouts/**/*.vue",
+    "pages/**/*.ts",
+    "pages/**/*.vue",
+    "store/**/*.ts",
+  ],
   "exclude": [
     "node_modules"
   ]
