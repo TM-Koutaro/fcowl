@@ -40,9 +40,9 @@ export default class Login extends VuexModule {
       } else {
         console.log('Logout')
         return {
-          name: false,
-          photoURL: false,
-          uid: false,
+          name: null,
+          photoURL: null,
+          uid: null,
         }
       }
     })
@@ -74,9 +74,9 @@ export default class Login extends VuexModule {
       .then(() => {
         window.alert('ログアウトしました')
         return {
-          name: false,
-          photoURL: false,
-          uid: false,
+          name: null,
+          photoURL: null,
+          uid: null,
         }
       })
       .catch((e) => {
