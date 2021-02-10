@@ -36,9 +36,6 @@ export default class Album extends VuexModule {
     return this.monthAlbumOtherPhotos
   }
 
-  // get getMonthAlbum() {
-  //   return this.monthAlbum
-  // }
   get getDeletePhoto() {
     return this.photo
   }
