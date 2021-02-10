@@ -8,13 +8,13 @@ type Status = {
   uid: string | null
 }
 @Module({
-  stateFactory: true,
+  stateFactory: true
 })
 export default class Login extends VuexModule {
   status: Status = {
     name: null,
     photoURL: null,
-    uid: null,
+    uid: null
   }
 
   get getStatus() {
@@ -35,14 +35,14 @@ export default class Login extends VuexModule {
         return {
           name: user.displayName,
           photoURL: user.photoURL,
-          uid: user.uid,
+          uid: user.uid
         }
       } else {
         console.log('Logout')
         return {
           name: null,
           photoURL: null,
-          uid: null,
+          uid: null
         }
       }
     })
@@ -58,7 +58,7 @@ export default class Login extends VuexModule {
         return {
           name: result.user!.displayName,
           photoURL: result.user!.photoURL,
-          uid: result.user!.uid,
+          uid: result.user!.uid
         }
       })
       .catch((e) => {
@@ -76,7 +76,7 @@ export default class Login extends VuexModule {
         return {
           name: null,
           photoURL: null,
-          uid: null,
+          uid: null
         }
       })
       .catch((e) => {

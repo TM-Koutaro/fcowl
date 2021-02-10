@@ -183,7 +183,7 @@ export default {
     }
     const myBlossomScene = new BlossomScene(myBlossomSceneConfig)
     /* eslint-enable */
-  },
+  }
 }
 </script>
 

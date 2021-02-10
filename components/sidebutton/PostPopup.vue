@@ -52,14 +52,14 @@ export default {
       user: {
         imgSrc: '',
         yearMonth: '',
-        message: '',
-      },
+        message: ''
+      }
     }
   },
   computed: {
     ...mapGetters({
-      get_status: 'login/get_status',
-    }),
+      get_status: 'login/get_status'
+    })
   },
   methods: {
     popupClose() {
@@ -95,7 +95,7 @@ export default {
         'image/gif',
         'image/jpeg',
         'image/jpg',
-        'image/png',
+        'image/png'
       ]
       if (file[0].size <= 20000000) {
         if (validImageTypes.includes(file[0].type)) {
@@ -182,7 +182,7 @@ export default {
               imgSrc: this.user.imgSrc,
               message: this.user.message,
               name: this.get_status().name,
-              uid: this.get_status().uid,
+              uid: this.get_status().uid
             })
             .then(() => {
               this.popupClose()
@@ -192,8 +192,8 @@ export default {
     },
     close() {
       this.$refs.popup.classList.remove('on')
-    },
-  },
+    }
+  }
 }
 </script>
 

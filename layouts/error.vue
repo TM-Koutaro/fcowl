@@ -19,63 +19,63 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: process.env.BASE_URL,
-        },
+          href: process.env.BASE_URL
+        }
       ],
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL,
+          content: process.env.BASE_URL
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL,
-        },
-      ],
+          content: process.env.BASE_URL
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

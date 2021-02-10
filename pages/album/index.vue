@@ -21,7 +21,7 @@
   SideButton(
     :isAlbum='isAlbum',
     :message='encodeURIComponent(get_photo().message)',
-    :url='encodeURIComponent(url + get_path())'
+    :url='encodeURIComponent(url + getPath())'
   )
   TopButton(
     :buttonId='"#album_" + $route.query.year + "_" + $route.query.month'
@@ -42,13 +42,13 @@ export default {
     const year = query.year
     const month = query.month
     await store
-      .dispatch('album/AllPhotos', {
+      .dispatch('album/addAllPhotos', {
         id,
         year,
-        month,
+        month
       })
       .then(() => {
-        if (store.getters['album/get_thisMonthAlbumPhoto']().length === 0) {
+        if (store.getters['album/getMonthAlbumPhoto']().length === 0) {
           return error({ statusCode: 404 })
         }
       })
@@ -57,7 +57,7 @@ export default {
     this.$store.dispatch('album/replacealbums', {
       id: to.query.id,
       year: to.query.year,
-      month: to.query.month,
+      month: to.query.month
     })
     const hilight = this.$refs.albumHilight
     const rect = hilight.getBoundingClientRect()
@@ -70,22 +70,22 @@ export default {
     return {
       isAlbum: true,
       message: '',
-      url: process.env.BASE_URL,
+      url: process.env.BASE_URL
     }
   },
   computed: {
     ...mapGetters({
-      get_path: 'album/get_path',
-      get_photo: 'album/get_thisMonthAlbumPhoto',
-      get_photos: 'album/get_thisMonthAlbumOtherPhotos',
-    }),
+      getPath: 'album/getPath',
+      get_photo: 'album/getMonthAlbumPhoto',
+      get_photos: 'album/getMonthAlbumOtherPhotos'
+    })
   },
   methods: {
     extractId(id) {
       return this.albumsArray.filter((v) => {
         return v.id === id
       })
-    },
+    }
   },
   head() {
     return {
@@ -95,56 +95,56 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: `${this.get_photo().message} | ${process.env.title}`,
+          content: `${this.get_photo().message} | ${process.env.title}`
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.get_photo().imgSrc,
+          content: this.get_photo().imgSrc
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL + this.get_path(),
+          content: process.env.BASE_URL + this.getPath()
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `${this.get_photo().message} | ${process.env.title}`,
+          content: `${this.get_photo().message} | ${process.env.title}`
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.get_photo().imgSrc,
+          content: this.get_photo().imgSrc
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL + this.get_path(),
-        },
-      ],
+          content: process.env.BASE_URL + this.getPath()
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

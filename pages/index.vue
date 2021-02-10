@@ -21,7 +21,7 @@
       .swiper-button-next next
   section.blocks
     h2 Album
-    template(v-for='thisYear in get_AllDatePhotos()')
+    template(v-for='thisYear in getAllDatePhotos()')
       template(v-for='thisMonth in thisYear[1]')
         h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
           span.title {{ `${thisYear[0]}/${thisMonth}` }}
@@ -60,7 +60,7 @@ export default {
   components: {
     Swiper,
     About,
-    AboutButton,
+    AboutButton
   },
   async fetch({ store, error }) {
     await import('~/modules/wp')
@@ -89,29 +89,29 @@ export default {
   },
   data() {
     return {
-      url: process.env.BASE_URL,
+      url: process.env.BASE_URL
     }
   },
   computed: {
     ...mapGetters({
-      get_AllDatePhotos: 'album/get_AllDatePhotos',
-      get_AllPhotos: 'album/get_AllPhotos',
+      getAllDatePhotos: 'album/getAllDatePhotos',
+      getAllPhotos: 'album/getAllPhotos',
       getWp: 'wp/getWp',
-      get_status: 'login/get_status',
-    }),
+      get_status: 'login/get_status'
+    })
   },
   mounted() {
     // アルバムデータ取得
-    this.$store.dispatch('album/AllDatePhotos').then(() => {
-      for (let y = 0; y < this.get_AllDatePhotos().length; y++) {
+    this.$store.dispatch('album/addAllDatePhotos').then(() => {
+      for (let y = 0; y < this.getAllDatePhotos().length; y++) {
         // 該当年の分だけデータを取得
-        const year = this.get_AllDatePhotos()[y][0]
-        for (let m = 0; m < this.get_AllDatePhotos()[y][1].length; m++) {
+        const year = this.getAllDatePhotos()[y][0]
+        for (let m = 0; m < this.getAllDatePhotos()[y][1].length; m++) {
           // 該当月の分だけデータを取得
-          const month = this.get_AllDatePhotos()[y][1][m]
-          this.$store.dispatch('album/AllPhotos', {
+          const month = this.getAllDatePhotos()[y][1][m]
+          this.$store.dispatch('album/addAllPhotos', {
             year,
-            month,
+            month
           })
         }
       }
@@ -119,24 +119,24 @@ export default {
     new Swiper('.swiper', {
       preloadImages: false,
       lazy: {
-        loadPrevNext: true,
+        loadPrevNext: true
       },
       centeredSlides: true,
       loop: true,
       navigation: {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        prevEl: '.swiper-button-prev'
       },
       breakpoints: {
         0: {
           slidesPerView: 1,
-          slidesPerGroup: 1,
+          slidesPerGroup: 1
         },
         769: {
           slidesPerView: 3,
-          slidesPerGroup: 3,
-        },
-      },
+          slidesPerGroup: 3
+        }
+      }
     })
   },
   methods: {
@@ -145,7 +145,7 @@ export default {
     },
     extractMonth(thisMonth) {
       const thisMonthhArray = []
-      this.get_AllPhotos().forEach((e) => {
+      this.getAllPhotos().forEach((e) => {
         e.filter((v) => {
           if (v.postMonth === thisMonth) {
             thisMonthhArray.push(v)
@@ -161,7 +161,7 @@ export default {
         }
       }
       return false
-    },
+    }
   },
   head() {
     return {
@@ -169,63 +169,63 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: process.env.BASE_URL,
-        },
+          href: process.env.BASE_URL
+        }
       ],
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL,
+          content: process.env.BASE_URL
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL,
-        },
-      ],
+          content: process.env.BASE_URL
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

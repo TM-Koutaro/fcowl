@@ -11,14 +11,14 @@ export default {
   props: {
     pageSingle: {
       default: () => {},
-      type: Object,
-    },
+      type: Object
+    }
   },
   methods: {
     closePopup() {
       this.$refs.about.style.display = ''
-    },
-  },
+    }
+  }
 }
 </script>
 

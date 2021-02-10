@@ -8,13 +8,13 @@
 import Popper from '~/components/svg/Popper.vue'
 export default {
   components: {
-    Popper,
+    Popper
   },
   props: {
     title: {
       default: '',
-      type: String,
-    },
+      type: String
+    }
   },
   activated() {
     console.log('activated')
@@ -41,8 +41,8 @@ export default {
     },
     openAbout() {
       document.getElementById('about').style.display = 'block'
-    },
-  },
+    }
+  }
 }
 </script>
 

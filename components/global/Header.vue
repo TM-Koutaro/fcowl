@@ -13,8 +13,8 @@ import Login from '~/components/header/Login.vue'
 export default {
   name: 'Header',
   components: {
-    Login,
-  },
+    Login
+  }
 }
 </script>
 

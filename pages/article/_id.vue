@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      buttonId: '#blog',
+      buttonId: '#blog'
     }
   },
   activated() {
@@ -97,7 +97,7 @@ export default {
       } else {
         this.$refs.article__writer.classList.remove('on')
       }
-    },
+    }
   },
   head() {
     return {
@@ -105,63 +105,63 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: process.env.BASE_URL + this.$route.path,
-        },
+          href: process.env.BASE_URL + this.$route.path
+        }
       ],
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.description,
+          content: this.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.$options.filters.unEscapeHTML(this.title),
+          content: this.$options.filters.unEscapeHTML(this.title)
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.description,
+          content: this.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.ogpImg,
+          content: this.ogpImg
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL,
+          content: process.env.BASE_URL
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: this.$options.filters.unEscapeHTML(this.title),
+          content: this.$options.filters.unEscapeHTML(this.title)
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: this.description,
+          content: this.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.ogpImg,
+          content: this.ogpImg
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL,
-        },
-      ],
+          content: process.env.BASE_URL
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

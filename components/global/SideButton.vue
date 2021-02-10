@@ -34,21 +34,21 @@ import PostPopup from '~/components/sidebutton/PostPopup.vue'
 
 export default {
   components: {
-    PostPopup,
+    PostPopup
   },
   props: {
     isAlbum: {
       default: false,
-      type: Boolean,
+      type: Boolean
     },
     message: {
       default: '',
-      type: String,
+      type: String
     },
     url: {
       default: '',
-      type: String,
-    },
+      type: String
+    }
   },
   methods: {
     jsDeleteSend() {
@@ -59,10 +59,10 @@ export default {
           .dispatch('album/deleteDB', {
             id: this.$route.query.id,
             year: this.$route.query.year,
-            month: this.$route.query.month,
+            month: this.$route.query.month
           })
           .then(() => {
-            this.$store.dispatch('album/deletePhoto').then(() => {
+            this.$store.dispatch('album/getDeletePhoto').then(() => {
               window.alert('削除が完了しました')
               location.href = '/'
             })
@@ -82,8 +82,8 @@ export default {
       } else {
         document.getElementById('popup').classList.add('on')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

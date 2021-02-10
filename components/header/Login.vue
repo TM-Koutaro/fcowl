@@ -18,8 +18,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      get_status: 'login/get_status',
-    }),
+      get_status: 'login/get_status'
+    })
   },
   mounted() {
     this.twitterLoginCheck()
@@ -35,8 +35,8 @@ export default {
       if (window.confirm('ログアウトしますか？')) {
         this.$store.dispatch('login/twitterLogout')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

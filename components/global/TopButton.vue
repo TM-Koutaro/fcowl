@@ -8,9 +8,9 @@ export default {
   props: {
     buttonId: {
       default: '',
-      type: String,
-    },
-  },
+      type: String
+    }
+  }
 }
 </script>
 
