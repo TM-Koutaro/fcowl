@@ -47,35 +47,32 @@
   Footer
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
 import { mapGetters } from 'vuex'
+import { Context } from '@nuxt/types'
 import { Swiper, Navigation, Lazy } from 'swiper'
 import About from '~/components/top/About.vue'
 import AboutButton from '~/components/top/AboutButton.vue'
-
 Swiper.use([Navigation, Lazy])
 
-export default {
-  name: 'Top',
-  components: {
-    Swiper,
-    About,
-    AboutButton
-  },
-  async fetch({ store, error }) {
+@Component({
+  async fetch(context: Context) {
+    const { store, error } = context
     await import('~/modules/wp')
       .then(async (module) => {
         const wp = new module.WpApi()
         // 記事取得
-        const downloadLatestPage = await wp.downloadLatestPage()
+        const downloadLatestPage: {}[] = await wp.downloadLatestPage()
         store.commit('wp/setWp', downloadLatestPage)
       })
       .catch(() => {
         return error({ statusCode: 404 })
       })
   },
-  async asyncData({ error }) {
-    const result = {}
+  async asyncData(context: Context) {
+    const { error } = context
+    const result: { [index: string]: string } = {}
     await import('~/modules/wp')
       .then(async (module) => {
         const wp = new module.WpApi()
@@ -87,27 +84,36 @@ export default {
       })
     return result
   },
+  computed: mapGetters({
+    getAllDatePhotos: 'album/getAllDatePhotos',
+    getAllPhotos: 'album/getAllPhotos',
+    getWp: 'wp/getWp'
+  }),
+  components: {
+    About,
+    AboutButton
+  }
+})
+export default class Top extends Vue {
   data() {
     return {
       url: process.env.BASE_URL
     }
-  },
-  computed: {
-    ...mapGetters({
-      getAllDatePhotos: 'album/getAllDatePhotos',
-      getAllPhotos: 'album/getAllPhotos',
-      getWp: 'wp/getWp'
-    })
-  },
+  }
+
+  getAllDatePhotos!: { [index: string]: string }[]
+  getAllPhotos!: []
+  getWp!: []
+
   mounted() {
     // アルバムデータ取得
     this.$store.dispatch('album/addAllDatePhotos').then(() => {
       for (let y = 0; y < this.getAllDatePhotos.length; y++) {
         // 該当年の分だけデータを取得
-        const year = this.getAllDatePhotos[y][0]
+        const year: string = this.getAllDatePhotos[y][0]
         for (let m = 0; m < this.getAllDatePhotos[y][1].length; m++) {
           // 該当月の分だけデータを取得
-          const month = this.getAllDatePhotos[y][1][m]
+          const month: string = this.getAllDatePhotos[y][1][m]
           this.$store.dispatch('album/addAllPhotos', {
             year,
             month
@@ -137,32 +143,34 @@ export default {
         }
       }
     })
-  },
-  methods: {
-    replaceAlbumText(text) {
-      return text.replace('/', '_')
-    },
-    extractMonth(thisMonth) {
-      const thisMonthhArray = []
-      this.getAllPhotos.forEach((e) => {
-        e.filter((v) => {
-          if (v.postMonth === thisMonth) {
-            thisMonthhArray.push(v)
-          }
-          return true
-        })
-      })
-      return thisMonthhArray
-    },
-    isArrayExists(array, value) {
-      for (let i = 0, len = array.length; i < len; i++) {
-        if (value === array[i]) {
-          return true
+  }
+
+  replaceAlbumText(albumText: string) {
+    return albumText.replace('/', '_')
+  }
+
+  extractMonth(thisMonth: string) {
+    const monthArray: {}[] = []
+    this.getAllPhotos.forEach((e: []) => {
+      e.filter((v: { postMonth: string }) => {
+        if (v.postMonth === thisMonth) {
+          monthArray.push(v)
         }
+        return true
+      })
+    })
+    return monthArray
+  }
+
+  isArrayExists(array: string, value: string) {
+    for (let i = 0, len = array.length; i < len; i++) {
+      if (value === array[i]) {
+        return true
       }
-      return false
     }
-  },
+    return false
+  }
+
   head() {
     return {
       title: process.env.title,
