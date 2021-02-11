@@ -73,8 +73,8 @@ export default class Album extends VuexModule {
   }
 
   @Mutation
-  setMonthAlbum(data: {}) {
-    this.monthAlbum.push(data)
+  setMonthAlbum(data: {}[]) {
+    this.monthAlbum = data.slice(0)
   }
 
   @Mutation

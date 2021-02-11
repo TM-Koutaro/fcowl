@@ -90,7 +90,6 @@ export default {
       return blob
     },
     formatImage(file) {
-      console.log(file[0])
       const validImageTypes = [
         'image/gif',
         'image/jpeg',
@@ -157,7 +156,6 @@ export default {
       this.formatImage(file)
     },
     submit() {
-      console.log(this.user.imgSrc)
       if (window.confirm('投稿しますか？')) {
         if (this.user.imgSrc === '') {
           window.alert('画像が添付されておりません')
@@ -181,8 +179,8 @@ export default {
               downloadURL,
               imgSrc: this.user.imgSrc,
               message: this.user.message,
-              name: this.getStatus().name,
-              uid: this.getStatus().uid
+              name: this.getStatus.name,
+              uid: this.getStatus.uid
             })
             .then(() => {
               this.popupClose()
