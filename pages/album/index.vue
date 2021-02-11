@@ -53,7 +53,7 @@ export default {
         }
       })
   },
-  beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to, next) {
     this.$store.dispatch('album/replacealbums', {
       id: to.query.id,
       year: to.query.year,

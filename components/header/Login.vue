@@ -1,14 +1,14 @@
 <template lang="pug">
 .login
-  template(v-if='!getStatus()')
+  template(v-if='!getStatus')
     a(href='#', @click='twitterLogin()')
       | Login
       Twitter.login__twitter
-  template(v-if='getStatus()')
+  template(v-if='getStatus')
     a(href='#', @click='twitterLogout()')
       | Logout
       span.login__face(
-        :style='{ backgroundImage: "url(" + getStatus().photoURL + ")" }'
+        :style='{ backgroundImage: "url(" + getStatus.photoURL + ")" }'
       )
 </template>
 

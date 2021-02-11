@@ -68,12 +68,12 @@ export default {
       this.user.message = ''
       location.reload()
     },
-    dragEnter(e) {
+    dragEnter() {
       if (!this.$refs.popup__input.classList.contains('mouseOn')) {
         this.$refs.popup__input.classList.add('mouseOn')
       }
     },
-    dragLeave(e) {
+    dragLeave() {
       if (this.$refs.popup__input.classList.contains('mouseOn')) {
         this.$refs.popup__input.classList.remove('mouseOn')
       }

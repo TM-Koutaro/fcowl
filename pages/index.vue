@@ -70,7 +70,7 @@ export default {
         const downloadLatestPage = await wp.downloadLatestPage()
         store.commit('wp/setWp', downloadLatestPage)
       })
-      .catch((e) => {
+      .catch(() => {
         return error({ statusCode: 404 })
       })
   },
@@ -82,7 +82,7 @@ export default {
         // About記事取得
         result.downloadPage = await wp.downloadPage(429)
       })
-      .catch((e) => {
+      .catch(() => {
         return error({ statusCode: 404 })
       })
     return result
@@ -96,8 +96,7 @@ export default {
     ...mapGetters({
       getAllDatePhotos: 'album/getAllDatePhotos',
       getAllPhotos: 'album/getAllPhotos',
-      getWp: 'wp/getWp',
-      getStatus: 'login/getStatus'
+      getWp: 'wp/getWp'
     })
   },
   mounted() {
@@ -150,6 +149,7 @@ export default {
           if (v.postMonth === thisMonth) {
             thisMonthhArray.push(v)
           }
+          return true
         })
       })
       return thisMonthhArray

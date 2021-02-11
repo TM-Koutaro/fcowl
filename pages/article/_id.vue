@@ -67,7 +67,7 @@ export default {
         // ユーザー情報取得
         result.downloadUser = await wp.downloadUser(result.userID)
       })
-      .catch((e) => {
+      .catch(() => {
         return error({ statusCode: 404 })
       })
     return result
