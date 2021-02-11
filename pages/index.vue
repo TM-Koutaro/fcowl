@@ -7,7 +7,7 @@
     .swiper
       .swiper-wrapper
         .swiper-slide.swiper-lazy(
-          v-for='(article, index) in getWp()',
+          v-for='(article, index) in getWp',
           :key='article.id',
           :data-background='article.better_featured_image.source_url'
         )
@@ -21,7 +21,7 @@
       .swiper-button-next next
   section.blocks
     h2 Album
-    template(v-for='thisYear in getAllDatePhotos()')
+    template(v-for='thisYear in getAllDatePhotos')
       template(v-for='thisMonth in thisYear[1]')
         h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
           span.title {{ `${thisYear[0]}/${thisMonth}` }}
@@ -97,7 +97,7 @@ export default {
       getAllDatePhotos: 'album/getAllDatePhotos',
       getAllPhotos: 'album/getAllPhotos',
       getWp: 'wp/getWp',
-      get_status: 'login/get_status'
+      getStatus: 'login/getStatus'
     })
   },
   mounted() {

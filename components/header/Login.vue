@@ -1,14 +1,14 @@
 <template lang="pug">
 .login
-  template(v-if='!get_status()')
+  template(v-if='!getStatus()')
     a(href='#', @click='twitterLogin()')
       | Login
       Twitter.login__twitter
-  template(v-if='get_status()')
+  template(v-if='getStatus()')
     a(href='#', @click='twitterLogout()')
       | Logout
       span.login__face(
-        :style='{ backgroundImage: "url(" + get_status().photoURL + ")" }'
+        :style='{ backgroundImage: "url(" + getStatus().photoURL + ")" }'
       )
 </template>
 
@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      get_status: 'login/get_status'
+      getStatus: 'login/getStatus'
     })
   },
   mounted() {

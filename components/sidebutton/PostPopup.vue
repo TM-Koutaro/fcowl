@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      get_status: 'login/get_status'
+      getStatus: 'login/getStatus'
     })
   },
   methods: {
@@ -181,8 +181,8 @@ export default {
               downloadURL,
               imgSrc: this.user.imgSrc,
               message: this.user.message,
-              name: this.get_status().name,
-              uid: this.get_status().uid
+              name: this.getStatus().name,
+              uid: this.getStatus().uid
             })
             .then(() => {
               this.popupClose()
