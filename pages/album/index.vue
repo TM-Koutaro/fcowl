@@ -7,12 +7,12 @@
     span(v-html='$route.query.month')
     | 月
   article.album
-    img.album__img(:src='get_photo().imgSrc')
-    p.album__message(v-html='get_photo().message')
-    p.album__name(v-html='get_photo().name')
-  .blocks-wrap(v-if='get_photos().length > 0')
+    img.album__img(:src='getPhoto.imgSrc')
+    p.album__message(v-html='getPhoto.message')
+    p.album__name(v-html='getPhoto.name')
+  .blocks-wrap(v-if='getPhotos.length > 0')
     Block(
-      v-for='album in get_photos()',
+      v-for='album in getPhotos',
       :key='album.id',
       :id='album.id',
       :postMonth='album.postMonth',
@@ -20,8 +20,8 @@
     )
   SideButton(
     :isAlbum='isAlbum',
-    :message='encodeURIComponent(get_photo().message)',
-    :url='encodeURIComponent(url + getPath())'
+    :message='encodeURIComponent(getPhoto.message)',
+    :url='encodeURIComponent(url + getPath)'
   )
   TopButton(
     :buttonId='"#album_" + $route.query.year + "_" + $route.query.month'
@@ -48,12 +48,12 @@ export default {
         month
       })
       .then(() => {
-        if (store.getters['album/getMonthAlbumPhoto']().length === 0) {
+        if (store.getters['album/getMonthAlbumPhoto'].length === 0) {
           return error({ statusCode: 404 })
         }
       })
   },
-  beforeRouteUpdate(to, next) {
+  beforeRouteUpdate(to, from, next) { // eslint-disable-line 
     this.$store.dispatch('album/replacealbums', {
       id: to.query.id,
       year: to.query.year,
@@ -76,8 +76,8 @@ export default {
   computed: {
     ...mapGetters({
       getPath: 'album/getPath',
-      get_photo: 'album/getMonthAlbumPhoto',
-      get_photos: 'album/getMonthAlbumOtherPhotos'
+      getPhoto: 'album/getMonthAlbumPhoto',
+      getPhotos: 'album/getMonthAlbumOtherPhotos'
     })
   },
   methods: {
@@ -89,7 +89,7 @@ export default {
   },
   head() {
     return {
-      title: `${this.get_photo().message} |  ${process.env.title}`,
+      title: `${this.getPhoto.message} |  ${process.env.title}`,
       meta: [
         { hid: 'og:type', property: 'og:type', content: 'album' },
         {
@@ -100,7 +100,7 @@ export default {
         {
           hid: 'og:title',
           name: 'og:title',
-          content: `${this.get_photo().message} | ${process.env.title}`
+          content: `${this.getPhoto.message} | ${process.env.title}`
         },
         {
           hid: 'og:description',
@@ -110,12 +110,12 @@ export default {
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.get_photo().imgSrc
+          content: this.getPhoto.imgSrc
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL + this.getPath()
+          content: process.env.BASE_URL + this.getPath
         },
         {
           hid: 'twitter:card',
@@ -125,7 +125,7 @@ export default {
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `${this.get_photo().message} | ${process.env.title}`
+          content: `${this.getPhoto.message} | ${process.env.title}`
         },
         {
           hid: 'twitter:description',
@@ -135,12 +135,12 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.get_photo().imgSrc
+          content: this.getPhoto.imgSrc
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL + this.getPath()
+          content: process.env.BASE_URL + this.getPath
         }
       ]
     }

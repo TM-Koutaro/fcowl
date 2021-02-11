@@ -13,7 +13,7 @@ export default class Album extends VuexModule {
   allPhotos: string[] = []
   monthAlbumPhotos: { [index: string]: string } = {}
   monthAlbumOtherPhotos: string = ''
-  monthAlbum: string[] = []
+  monthAlbum: { [index: string]: string }[] = []
   photo: string = ''
 
   get getPath() {
@@ -73,7 +73,7 @@ export default class Album extends VuexModule {
   }
 
   @Mutation
-  setMonthAlbum(data: string) {
+  setMonthAlbum(data: {}) {
     this.monthAlbum.push(data)
   }
 
@@ -86,14 +86,15 @@ export default class Album extends VuexModule {
   async addAllPhotos(data: { year: string; month: string; id: string }) {
     console.log('AllPhotos')
     const docUsers = db.collection(`owl/${data.year}/${data.month}/`)
-    const _monthAlbumOtherPhotos: string[] = []
-    const _monthAlbum: string[] = []
-    let _monthAlbumPhoto: string = ''
+    const _monthAlbumOtherPhotos: {}[] = []
+    const _monthAlbum: {}[] = []
+    let _monthAlbumPhoto: {} = {}
+
     await docUsers
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const picData: any = doc.data()
+          const picData: { [index: string]: string } = doc.data()
           picData.id = doc.id
           if (data.id) {
             // アルバムページの場合
@@ -134,7 +135,7 @@ export default class Album extends VuexModule {
       const docUsers = db.collection('owl')
       docUsers.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const compare = (a: any, b: any) => Number(b) - Number(a)
+          const compare = (a: any, b: any) => b - a
           this.context.commit('setAllDatePhotos', [
             doc.id,
             Object.keys(doc.data()).sort(compare)
@@ -146,11 +147,11 @@ export default class Album extends VuexModule {
   }
 
   @Action
-  replacealbums(data: { id: string; year: string; month: string }) {
-    console.log('thisMonthAlbum')
-    const _monthAlbumOtherPhotos: string[] = []
-    let _monthAlbumPhoto: string = ''
-    this.monthAlbum.forEach((doc: any) => {
+  replacealbums(data: { [index: string]: string }) {
+    console.log('replacealbums', data)
+    const _monthAlbumOtherPhotos: {}[] = []
+    let _monthAlbumPhoto: {} = {}
+    this.monthAlbum.forEach((doc) => {
       if (doc.id !== data.id) {
         _monthAlbumOtherPhotos.push(doc)
       } else {
@@ -166,16 +167,7 @@ export default class Album extends VuexModule {
   }
 
   @Action
-  addPhoto(data: {
-    month: string
-    year: string
-    downloadURL: string
-    message: string
-    name: string
-    uid: string
-    fileName: string
-    imgSrc: string
-  }) {
+  addPhoto(data: { [index: string]: string }) {
     return new Promise((resolve: (value: void) => void) => {
       console.log('addPhoto')
       const rootName = db.collection('owl').doc(String(data.year))
@@ -223,7 +215,7 @@ export default class Album extends VuexModule {
   }
 
   @Action
-  deleteDB(data: { year: string; month: string; id: string }) {
+  deleteDB(data: { [index: string]: string }) {
     return new Promise((resolve: (value: void) => void) => {
       console.log('deleteDB')
       const imgName = this.monthAlbumPhotos.imgSrc.substr(

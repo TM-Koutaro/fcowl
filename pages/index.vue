@@ -102,12 +102,12 @@ export default {
   mounted() {
     // アルバムデータ取得
     this.$store.dispatch('album/addAllDatePhotos').then(() => {
-      for (let y = 0; y < this.getAllDatePhotos().length; y++) {
+      for (let y = 0; y < this.getAllDatePhotos.length; y++) {
         // 該当年の分だけデータを取得
-        const year = this.getAllDatePhotos()[y][0]
-        for (let m = 0; m < this.getAllDatePhotos()[y][1].length; m++) {
+        const year = this.getAllDatePhotos[y][0]
+        for (let m = 0; m < this.getAllDatePhotos[y][1].length; m++) {
           // 該当月の分だけデータを取得
-          const month = this.getAllDatePhotos()[y][1][m]
+          const month = this.getAllDatePhotos[y][1][m]
           this.$store.dispatch('album/addAllPhotos', {
             year,
             month
@@ -144,7 +144,7 @@ export default {
     },
     extractMonth(thisMonth) {
       const thisMonthhArray = []
-      this.getAllPhotos().forEach((e) => {
+      this.getAllPhotos.forEach((e) => {
         e.filter((v) => {
           if (v.postMonth === thisMonth) {
             thisMonthhArray.push(v)
