@@ -192,6 +192,12 @@ export default {
         }
       })
     },
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-decorators', { legacy: true }],
+        ['@babel/plugin-proposal-class-properties', { loose: true }]
+      ]
+    },
     terser: {
       terserOptions: {
         compress: { drop_console: true }
