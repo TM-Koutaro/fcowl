@@ -31,13 +31,16 @@
   Footer
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+import { Route, RawLocation } from 'vue-router'
+import { Context } from '@nuxt/types'
 import { mapGetters } from 'vuex'
 
-export default {
-  name: 'Album',
+@Component({
   scrollToTop: true,
-  async fetch({ query, store, error }) {
+  async fetch(context: Context) {
+    const { query, store, error } = context
     const id = query.id
     const year = query.year
     const month = query.month
@@ -53,7 +56,34 @@ export default {
         }
       })
   },
-  beforeRouteUpdate(to, from, next) { // eslint-disable-line 
+  computed: mapGetters({
+    getPath: 'album/getPath',
+    getPhoto: 'album/getMonthAlbumPhoto',
+    getPhotos: 'album/getMonthAlbumOtherPhotos'
+  })
+})
+export default class Album extends Vue {
+  data() {
+    return {
+      isAlbum: true,
+      message: '',
+      url: process.env.BASE_URL
+    }
+  }
+
+  $refs!: {
+    albumHilight: HTMLElement
+  }
+
+  getPath!: string
+  getPhoto!: { [index: string]: string }
+  getPhotos!: string
+
+  beforeRouteUpdate(
+    to: Route,
+    from: Route, // eslint-disable-line
+    next: (to?: RawLocation | false | ((vm: Vue) => void)) => void
+  ) {
     this.$store.dispatch('album/replacealbums', {
       id: to.query.id,
       year: to.query.year,
@@ -65,28 +95,8 @@ export default {
     const myTop = rect.top + scrollTop
     window.scrollTo(0, myTop)
     next()
-  },
-  data() {
-    return {
-      isAlbum: true,
-      message: '',
-      url: process.env.BASE_URL
-    }
-  },
-  computed: {
-    ...mapGetters({
-      getPath: 'album/getPath',
-      getPhoto: 'album/getMonthAlbumPhoto',
-      getPhotos: 'album/getMonthAlbumOtherPhotos'
-    })
-  },
-  methods: {
-    extractId(id) {
-      return this.albumsArray.filter((v) => {
-        return v.id === id
-      })
-    }
-  },
+  }
+
   head() {
     return {
       title: `${this.getPhoto.message} |  ${process.env.title}`,
