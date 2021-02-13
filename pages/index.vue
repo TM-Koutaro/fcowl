@@ -58,7 +58,6 @@ Swiper.use([Navigation, Lazy])
 
 @Component({
   async fetch(context: Context) {
-    console.log('fetch')
     const { store, error } = context
     await import('~/modules/wp')
       .then(async (module) => {
@@ -72,7 +71,6 @@ Swiper.use([Navigation, Lazy])
       })
   },
   async asyncData(context: Context) {
-    console.log('asyncData')
     const { error } = context
     const result: { [index: string]: string } = {}
     await import('~/modules/wp')
