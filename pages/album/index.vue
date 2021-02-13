@@ -39,13 +39,6 @@ import { mapGetters } from 'vuex'
 
 @Component({
   scrollToTop: true,
-  computed: mapGetters({
-    getPath: 'album/getPath',
-    getPhoto: 'album/getMonthAlbumPhoto',
-    getPhotos: 'album/getMonthAlbumOtherPhotos'
-  })
-})
-export default class Album extends Vue {
   async fetch(context: Context) {
     console.log('fetch')
     const { query, store, error } = context
@@ -63,8 +56,14 @@ export default class Album extends Vue {
           return error({ statusCode: 404 })
         }
       })
-  }
-
+  },
+  computed: mapGetters({
+    getPath: 'album/getPath',
+    getPhoto: 'album/getMonthAlbumPhoto',
+    getPhotos: 'album/getMonthAlbumOtherPhotos'
+  })
+})
+export default class Album extends Vue {
   data() {
     return {
       isAlbum: true,
