@@ -40,6 +40,7 @@ import { mapGetters } from 'vuex'
 @Component({
   scrollToTop: true,
   async fetch(context: Context) {
+    console.log('fetch')
     const { query, store, error } = context
     const id = query.id
     const year = query.year
