@@ -40,7 +40,6 @@ import { mapGetters } from 'vuex'
 @Component({
   scrollToTop: true,
   async fetch(context: Context) {
-    console.log('fetch')
     const { query, store, error } = context
     const id = query.id
     const year = query.year
@@ -52,7 +51,6 @@ import { mapGetters } from 'vuex'
         month
       })
       .then(() => {
-        console.log('結果', store.getters['album/getMonthAlbumPhoto'].imgSrc)
         if (!store.getters['album/getMonthAlbumPhoto'].imgSrc) {
           return error({ statusCode: 404 })
         }

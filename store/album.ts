@@ -29,7 +29,6 @@ export default class Album extends VuexModule {
   }
 
   get getMonthAlbumPhoto() {
-    console.log('getMonthAlbumPhoto', this.monthAlbumPhoto)
     return this.monthAlbumPhoto
   }
 
@@ -66,7 +65,6 @@ export default class Album extends VuexModule {
   @Mutation
   setMonthAlbumPhoto(data: {}) {
     this.monthAlbumPhoto = data
-    console.log('setMonthAlbumPhoto', this.monthAlbumPhoto)
   }
 
   @Mutation
@@ -150,7 +148,6 @@ export default class Album extends VuexModule {
 
   @Action
   replacealbums(data: { [index: string]: string }) {
-    console.log('replacealbums', data)
     const _monthAlbumOtherPhotos: {}[] = []
     let _monthAlbumPhoto: {} = {}
     this.monthAlbum.forEach((doc) => {
