@@ -1,10 +1,10 @@
 <template lang="pug">
 .login
-  template(v-if='!getStatus')
+  template(v-if='!getStatus.name')
     a(href='#', @click='twitterLogin()')
       | Login
       Twitter.login__twitter
-  template(v-if='getStatus')
+  template(v-else)
     a(href='#', @click='twitterLogout()')
       | Logout
       span.login__face(
