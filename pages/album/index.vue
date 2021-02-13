@@ -39,8 +39,8 @@ import { mapGetters } from 'vuex'
 
 @Component({
   scrollToTop: true,
-  fetchOnServer: false,
   async fetch(context: Context) {
+    console.log('fetch')
     const { query, store, error } = context
     const id = query.id
     const year = query.year
@@ -52,7 +52,7 @@ import { mapGetters } from 'vuex'
         month
       })
       .then(() => {
-        if (store.getters['album/getMonthAlbumPhoto'].length === 0) {
+        if (!store.getters['album/getMonthAlbumPhoto'].length) {
           return error({ statusCode: 404 })
         }
       })
