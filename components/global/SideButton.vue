@@ -62,7 +62,7 @@ export default {
             month: this.$route.query.month
           })
           .then(() => {
-            this.$store.dispatch('album/getDeletePhoto').then(() => {
+            this.$store.dispatch('album/deletePhoto').then(() => {
               window.alert('削除が完了しました')
               location.href = '/'
             })
