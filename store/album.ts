@@ -29,6 +29,7 @@ export default class Album extends VuexModule {
   }
 
   get getMonthAlbumPhoto() {
+    console.log('getMonthAlbumPhoto', this.monthAlbumPhoto)
     return this.monthAlbumPhoto
   }
 
@@ -65,6 +66,7 @@ export default class Album extends VuexModule {
   @Mutation
   setMonthAlbumPhoto(data: {}) {
     this.monthAlbumPhoto = data
+    console.log('setMonthAlbumPhoto', this.monthAlbumPhoto)
   }
 
   @Mutation
@@ -112,7 +114,6 @@ export default class Album extends VuexModule {
         throw e
       })
     if (data.id) {
-      console.log('true', _monthAlbumPhoto)
       // アルバムページの場合
       this.context.commit(
         'setPath',

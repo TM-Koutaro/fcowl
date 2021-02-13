@@ -52,7 +52,8 @@ import { mapGetters } from 'vuex'
         month
       })
       .then(() => {
-        if (!store.getters['album/getMonthAlbumPhoto'].length) {
+        console.log('結果', store.getters['album/getMonthAlbumPhoto'].imgSrc)
+        if (!store.getters['album/getMonthAlbumPhoto'].imgSrc) {
           return error({ statusCode: 404 })
         }
       })
