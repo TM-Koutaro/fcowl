@@ -10,17 +10,17 @@ export default {
   props: {
     id: {
       default: '',
-      type: String,
+      type: String
     },
     postMonth: {
       default: '',
-      type: String,
+      type: String
     },
     imgSrc: {
       default: '',
-      type: String,
-    },
-  },
+      type: String
+    }
+  }
 }
 </script>
 

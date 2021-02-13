@@ -12,8 +12,8 @@ export default {
     },
     finish() {
       document.getElementById('loading').classList.remove('on')
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -7,12 +7,12 @@
     span(v-html='$route.query.month')
     | 月
   article.album
-    img.album__img(:src='get_photo().imgSrc')
-    p.album__message(v-html='get_photo().message')
-    p.album__name(v-html='get_photo().name')
-  .blocks-wrap(v-if='get_photos().length > 0')
+    img.album__img(:src='getPhoto.imgSrc')
+    p.album__message(v-html='getPhoto.message')
+    p.album__name(v-html='getPhoto.name')
+  .blocks-wrap(v-if='getPhotos.length > 0')
     Block(
-      v-for='album in get_photos()',
+      v-for='album in getPhotos',
       :key='album.id',
       :id='album.id',
       :postMonth='album.postMonth',
@@ -20,8 +20,8 @@
     )
   SideButton(
     :isAlbum='isAlbum',
-    :message='encodeURIComponent(get_photo().message)',
-    :url='encodeURIComponent(url + get_path())'
+    :message='encodeURIComponent(getPhoto.message)',
+    :url='encodeURIComponent(url + getPath)'
   )
   TopButton(
     :buttonId='"#album_" + $route.query.year + "_" + $route.query.month'
@@ -31,33 +31,63 @@
   Footer
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+import { Route, RawLocation } from 'vue-router'
+import { Context } from '@nuxt/types'
 import { mapGetters } from 'vuex'
 
-export default {
-  name: 'Album',
+@Component({
   scrollToTop: true,
-  async fetch({ query, store, error }) {
+  async fetch(context: Context) {
+    const { query, store, error } = context
     const id = query.id
     const year = query.year
     const month = query.month
     await store
-      .dispatch('album/AllPhotos', {
+      .dispatch('album/addAllPhotos', {
         id,
         year,
-        month,
+        month
       })
       .then(() => {
-        if (store.getters['album/get_thisMonthAlbumPhoto']().length === 0) {
+        if (store.getters['album/getMonthAlbumPhoto'].length === 0) {
           return error({ statusCode: 404 })
         }
       })
   },
-  beforeRouteUpdate(to, from, next) {
+  computed: mapGetters({
+    getPath: 'album/getPath',
+    getPhoto: 'album/getMonthAlbumPhoto',
+    getPhotos: 'album/getMonthAlbumOtherPhotos'
+  })
+})
+export default class Album extends Vue {
+  data() {
+    return {
+      isAlbum: true,
+      message: '',
+      url: process.env.BASE_URL
+    }
+  }
+
+  $refs!: {
+    albumHilight: HTMLElement
+  }
+
+  getPath!: string
+  getPhoto!: { [index: string]: string }
+  getPhotos!: string
+
+  beforeRouteUpdate(
+    to: Route,
+    from: Route, // eslint-disable-line
+    next: (to?: RawLocation | false | ((vm: Vue) => void)) => void
+  ) {
     this.$store.dispatch('album/replacealbums', {
       id: to.query.id,
       year: to.query.year,
-      month: to.query.month,
+      month: to.query.month
     })
     const hilight = this.$refs.albumHilight
     const rect = hilight.getBoundingClientRect()
@@ -65,86 +95,66 @@ export default {
     const myTop = rect.top + scrollTop
     window.scrollTo(0, myTop)
     next()
-  },
-  data() {
-    return {
-      isAlbum: true,
-      message: '',
-      url: process.env.BASE_URL,
-    }
-  },
-  computed: {
-    ...mapGetters({
-      get_path: 'album/get_path',
-      get_photo: 'album/get_thisMonthAlbumPhoto',
-      get_photos: 'album/get_thisMonthAlbumOtherPhotos',
-    }),
-  },
-  methods: {
-    extractId(id) {
-      return this.albumsArray.filter((v) => {
-        return v.id === id
-      })
-    },
-  },
+  }
+
   head() {
     return {
-      title: `${this.get_photo().message} |  ${process.env.title}`,
+      title: `${this.getPhoto.message} |  ${process.env.title}`,
       meta: [
         { hid: 'og:type', property: 'og:type', content: 'album' },
         {
           hid: 'description',
           name: 'description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: `${this.get_photo().message} | ${process.env.title}`,
+          content: `${this.getPhoto.message} | ${process.env.title}`
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.get_photo().imgSrc,
+          content: this.getPhoto.imgSrc
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL + this.get_path(),
+          content: process.env.BASE_URL + this.getPath
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `${this.get_photo().message} | ${process.env.title}`,
+          content: `${this.getPhoto.message} | ${process.env.title}`
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.get_photo().imgSrc,
+          content: this.getPhoto.imgSrc
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL + this.get_path(),
-        },
-      ],
+          content: process.env.BASE_URL + this.getPath
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 

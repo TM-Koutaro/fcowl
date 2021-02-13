@@ -16,7 +16,7 @@ const {
   AWS_S3_BUCKETNAME,
   AWS_S3_REGION,
   AWS_S3_ACCESSKEYID,
-  AWS_S3_SECRETACCESSKEY,
+  AWS_S3_SECRETACCESSKEY
 } = process.env
 
 export default {
@@ -26,7 +26,7 @@ export default {
    */
   loading: {
     color: '#968388',
-    height: '5px',
+    height: '5px'
   },
   /*
    ** Headers of the page
@@ -35,21 +35,21 @@ export default {
   head: {
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Cinzel+Decorative:700|Cinzel:400,700&display=swap',
+          'https://fonts.googleapis.com/css?family=Cinzel+Decorative:700|Cinzel:400,700&display=swap'
       },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap',
-      },
-    ],
+          'https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap'
+      }
+    ]
   },
   /*
    ** generate
@@ -69,7 +69,7 @@ export default {
           throw e
         })
       return wpArticles
-    },
+    }
   },
   /*
    ** Global CSS
@@ -81,7 +81,7 @@ export default {
    */
   plugins: [
     { src: '~plugins/global_filter.js' },
-    { src: '~plugins/lazyload.js' },
+    { src: '~plugins/lazyload.js' }
   ],
   /*
    ** Auto import components
@@ -90,23 +90,24 @@ export default {
   components: [
     { path: '~/components/dynamic', global: true },
     { path: '~/components/svg', global: true },
-    '~/components',
+    '~/components'
   ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/netlify-files',
-    '@nuxtjs/gtm',
+    '@nuxtjs/gtm'
   ],
   /*
    * safari無限ロード対策
    **/
   filenames: {
     app: ({ isDev }) => (isDev ? '[name].[hash].js' : '[chunkhash].js'),
-    chunk: ({ isDev }) => (isDev ? '[name].[hash].js' : '[chunkhash].js'),
+    chunk: ({ isDev }) => (isDev ? '[name].[hash].js' : '[chunkhash].js')
   },
   /*
    ** Nuxt.js modules
@@ -116,7 +117,7 @@ export default {
     // '@nuxtjs/manifest',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap'
   ],
   /*
    ** Sitemap
@@ -125,20 +126,21 @@ export default {
     path: '/sitemap.xml',
     hostname: 'https://fcowl.com/',
     exclude: ['/album'],
-    routes: articlesId,
+    routes: articlesId
   },
   /*
    * GTM
    **/
   gtm: {
-    id: 'GTM-MC9B567',
+    id: 'GTM-MC9B567'
   },
   /*
    ** env
    */
   env: {
     title: 'Order Of The Owl',
-    description: 'ファイナルファンタジーXIV Shinryu World にて活動中の Order Of The Owl Free Company サイトです。',
+    description:
+      'ファイナルファンタジーXIV (FF14) Shinryu World にて活動中の Order Of The Owl Free Company サイトです。',
     REST_API_URL,
     FB_API_KEY,
     FB_AUTH_DOMAIN,
@@ -152,7 +154,7 @@ export default {
     AWS_S3_REGION,
     AWS_S3_ACCESSKEYID,
     AWS_S3_SECRETACCESSKEY,
-    BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
+    BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
   },
   styleResources: {
     scss: [
@@ -161,8 +163,8 @@ export default {
       '~/assets/scss/fonts.scss',
       '~/assets/scss/colors.scss',
       '~/assets/scss/site.scss',
-      '~/assets/scss/swiper.scss',
-    ],
+      '~/assets/scss/swiper.scss'
+    ]
   },
   /*
    ** Axios module configuration
@@ -174,33 +176,39 @@ export default {
   */
   router: {
     base: '/',
-    linkActiveClass: 'active-link',
+    linkActiveClass: 'active-link'
   },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {
-    extend(config, ctx) {
+    extend(config) {
       config.module.rules.push({
         test: /\.(ogg|mp3|wav|mpe?g)$/i,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]',
-        },
+          name: '[path][name].[ext]'
+        }
       })
+    },
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-decorators', { legacy: true }],
+        ['@babel/plugin-proposal-class-properties', { loose: true }]
+      ]
     },
     terser: {
       terserOptions: {
-        compress: { drop_console: true },
-      },
+        compress: { drop_console: true }
+      }
     },
     loaders: {
       vue: {
         transformAssetUrls: {
-          video: 'src',
-        },
-      },
-    },
-  },
+          video: 'src'
+        }
+      }
+    }
+  }
 }

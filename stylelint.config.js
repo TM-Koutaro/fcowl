@@ -15,9 +15,9 @@ module.exports = {
           'include',
           'for',
           'function',
-          'return',
-        ],
-      },
-    ],
-  },
+          'return'
+        ]
+      }
+    ]
+  }
 }

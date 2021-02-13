@@ -52,14 +52,14 @@ export default {
       user: {
         imgSrc: '',
         yearMonth: '',
-        message: '',
-      },
+        message: ''
+      }
     }
   },
   computed: {
     ...mapGetters({
-      get_status: 'login/get_status',
-    }),
+      getStatus: 'login/getStatus'
+    })
   },
   methods: {
     popupClose() {
@@ -68,12 +68,12 @@ export default {
       this.user.message = ''
       location.reload()
     },
-    dragEnter(e) {
+    dragEnter() {
       if (!this.$refs.popup__input.classList.contains('mouseOn')) {
         this.$refs.popup__input.classList.add('mouseOn')
       }
     },
-    dragLeave(e) {
+    dragLeave() {
       if (this.$refs.popup__input.classList.contains('mouseOn')) {
         this.$refs.popup__input.classList.remove('mouseOn')
       }
@@ -90,12 +90,11 @@ export default {
       return blob
     },
     formatImage(file) {
-      console.log(file[0])
       const validImageTypes = [
         'image/gif',
         'image/jpeg',
         'image/jpg',
-        'image/png',
+        'image/png'
       ]
       if (file[0].size <= 20000000) {
         if (validImageTypes.includes(file[0].type)) {
@@ -157,14 +156,14 @@ export default {
       this.formatImage(file)
     },
     submit() {
-      console.log(this.user.imgSrc)
       if (window.confirm('投稿しますか？')) {
-        if (this.user.imgSrc === '') window.alert('画像が添付されておりません')
-        else if (this.user.yearMonth === '' || this.user.yearMonth === null)
+        if (this.user.imgSrc === '') {
+          window.alert('画像が添付されておりません')
+        } else if (this.user.yearMonth === '' || this.user.yearMonth === null) {
           window.alert('掲載日が指定されておりません')
-        else if (this.user.message === '')
+        } else if (this.user.message === '') {
           window.alert('メッセージ内容が入力されておりません')
-        else {
+        } else {
           document.getElementById('loading').classList.add('on')
           const month = new Date(this.user.yearMonth).getMonth() + 1
           const year = new Date(this.user.yearMonth).getFullYear()
@@ -180,8 +179,8 @@ export default {
               downloadURL,
               imgSrc: this.user.imgSrc,
               message: this.user.message,
-              name: this.get_status().name,
-              uid: this.get_status().uid,
+              name: this.getStatus.name,
+              uid: this.getStatus.uid
             })
             .then(() => {
               this.popupClose()
@@ -191,8 +190,8 @@ export default {
     },
     close() {
       this.$refs.popup.classList.remove('on')
-    },
-  },
+    }
+  }
 }
 </script>
 

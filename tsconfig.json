@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": [
+      "ESNext",
+      "ESNext.AsyncIterable",
+      "DOM"
+    ],
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
+    "types": [
+      "@types/node",
+      "@nuxt/types"
+    ]
+  },
+  "include": [
+    "components/**/*.ts",
+    "components/**/*.vue",
+    "layouts/**/*.ts",
+    "layouts/**/*.vue",
+    "pages/**/*.ts",
+    "pages/**/*.vue",
+    "store/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

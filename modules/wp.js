@@ -7,8 +7,8 @@ export class WpApi {
       .get(`${process.env.REST_API_URL}/wp/v2/posts`, {
         params: {
           per_page: 6,
-          _fields: 'id,title,featured_media,better_featured_image,date',
-        },
+          _fields: 'id,title,featured_media,better_featured_image,date'
+        }
       })
       .then((json) => {
         return json.data
@@ -24,8 +24,8 @@ export class WpApi {
       .get(`${process.env.REST_API_URL}/wp/v2/posts/${id}`, {
         params: {
           _fields:
-            'title,content,featured_media,better_featured_image,acf,date,author',
-        },
+            'title,content,featured_media,better_featured_image,acf,date,author'
+        }
       })
       .then((json) => {
         return json.data
@@ -52,8 +52,8 @@ export class WpApi {
     return axios
       .get(`${process.env.REST_API_URL}/wp/v2/posts/?author=${id}`, {
         params: {
-          _fields: 'id,title,featured_media,better_featured_image',
-        },
+          _fields: 'id,title,featured_media,better_featured_image'
+        }
       })
       .then((json) => {
         return json.data
@@ -68,8 +68,8 @@ export class WpApi {
     return axios
       .get(`${process.env.REST_API_URL}/wp/v2/users/${id}`, {
         params: {
-          _fields: 'acf,url, name',
-        },
+          _fields: 'acf,url, name'
+        }
       })
       .then((json) => {
         return json.data
@@ -85,8 +85,8 @@ export class WpApi {
       .get(`${process.env.REST_API_URL}/wp/v2/posts`, {
         params: {
           per_page: 99,
-          _fields: 'id',
-        },
+          _fields: 'id'
+        }
       })
       .then((json) => {
         return json.data

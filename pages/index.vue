@@ -7,7 +7,7 @@
     .swiper
       .swiper-wrapper
         .swiper-slide.swiper-lazy(
-          v-for='(article, index) in get_wp()',
+          v-for='(article, index) in getWp',
           :key='article.id',
           :data-background='article.better_featured_image.source_url'
         )
@@ -21,7 +21,7 @@
       .swiper-button-next next
   section.blocks
     h2 Album
-    template(v-for='thisYear in get_AllDatePhotos()')
+    template(v-for='thisYear in getAllDatePhotos')
       template(v-for='thisMonth in thisYear[1]')
         h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
           span.title {{ `${thisYear[0]}/${thisMonth}` }}
@@ -47,71 +47,76 @@
   Footer
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
 import { mapGetters } from 'vuex'
+import { Context } from '@nuxt/types'
 import { Swiper, Navigation, Lazy } from 'swiper'
 import About from '~/components/top/About.vue'
 import AboutButton from '~/components/top/AboutButton.vue'
-
 Swiper.use([Navigation, Lazy])
 
-export default {
-  name: 'Top',
-  components: {
-    Swiper,
-    About,
-    AboutButton,
-  },
-  async fetch({ store, error }) {
+@Component({
+  async fetch(context: Context) {
+    const { store, error } = context
     await import('~/modules/wp')
       .then(async (module) => {
         const wp = new module.WpApi()
         // 記事取得
-        const downloadLatestPage = await wp.downloadLatestPage()
-        store.commit('wp/set_wp', downloadLatestPage)
+        const downloadLatestPage: {}[] = await wp.downloadLatestPage()
+        store.commit('wp/setWp', downloadLatestPage)
       })
-      .catch((e) => {
+      .catch(() => {
         return error({ statusCode: 404 })
       })
   },
-  async asyncData({ error }) {
-    const result = {}
+  async asyncData(context: Context) {
+    const { error } = context
+    const result: { [index: string]: string } = {}
     await import('~/modules/wp')
       .then(async (module) => {
         const wp = new module.WpApi()
         // About記事取得
         result.downloadPage = await wp.downloadPage(429)
       })
-      .catch((e) => {
+      .catch(() => {
         return error({ statusCode: 404 })
       })
     return result
   },
+  computed: mapGetters({
+    getAllDatePhotos: 'album/getAllDatePhotos',
+    getAllPhotos: 'album/getAllPhotos',
+    getWp: 'wp/getWp'
+  }),
+  components: {
+    About,
+    AboutButton
+  }
+})
+export default class Top extends Vue {
   data() {
     return {
-      url: process.env.BASE_URL,
+      url: process.env.BASE_URL
     }
-  },
-  computed: {
-    ...mapGetters({
-      get_AllDatePhotos: 'album/get_AllDatePhotos',
-      get_AllPhotos: 'album/get_AllPhotos',
-      get_wp: 'wp/get_wp',
-      get_status: 'login/get_status',
-    }),
-  },
+  }
+
+  getAllDatePhotos!: { [index: string]: string }[]
+  getAllPhotos!: []
+  getWp!: []
+
   mounted() {
     // アルバムデータ取得
-    this.$store.dispatch('album/AllDatePhotos').then(() => {
-      for (let y = 0; y < this.get_AllDatePhotos().length; y++) {
+    this.$store.dispatch('album/addAllDatePhotos').then(() => {
+      for (let y = 0; y < this.getAllDatePhotos.length; y++) {
         // 該当年の分だけデータを取得
-        const year = this.get_AllDatePhotos()[y][0]
-        for (let m = 0; m < this.get_AllDatePhotos()[y][1].length; m++) {
+        const year: string = this.getAllDatePhotos[y][0]
+        for (let m = 0; m < this.getAllDatePhotos[y][1].length; m++) {
           // 該当月の分だけデータを取得
-          const month = this.get_AllDatePhotos()[y][1][m]
-          this.$store.dispatch('album/AllPhotos', {
+          const month: string = this.getAllDatePhotos[y][1][m]
+          this.$store.dispatch('album/addAllPhotos', {
             year,
-            month,
+            month
           })
         }
       }
@@ -119,111 +124,116 @@ export default {
     new Swiper('.swiper', {
       preloadImages: false,
       lazy: {
-        loadPrevNext: true,
+        loadPrevNext: true
       },
       centeredSlides: true,
       loop: true,
       navigation: {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        prevEl: '.swiper-button-prev'
       },
       breakpoints: {
         0: {
           slidesPerView: 1,
-          slidesPerGroup: 1,
+          slidesPerGroup: 1
         },
         769: {
           slidesPerView: 3,
-          slidesPerGroup: 3,
-        },
-      },
-    })
-  },
-  methods: {
-    replaceAlbumText(text) {
-      return text.replace('/', '_')
-    },
-    extractMonth(thisMonth) {
-      const thisMonthhArray = []
-      this.get_AllPhotos().forEach((e) => {
-        e.filter((v) => {
-          if (v.postMonth === thisMonth) thisMonthhArray.push(v)
-        })
-      })
-      return thisMonthhArray
-    },
-    isArrayExists(array, value) {
-      for (let i = 0, len = array.length; i < len; i++) {
-        if (value === array[i]) {
-          return true
+          slidesPerGroup: 3
         }
       }
-      return false
-    },
-  },
+    })
+  }
+
+  replaceAlbumText(albumText: string) {
+    return albumText.replace('/', '_')
+  }
+
+  extractMonth(thisMonth: string) {
+    const monthArray: {}[] = []
+    this.getAllPhotos.forEach((e: []) => {
+      e.filter((v: { postMonth: string }) => {
+        if (v.postMonth === thisMonth) {
+          monthArray.push(v)
+        }
+        return true
+      })
+    })
+    return monthArray
+  }
+
+  isArrayExists(array: string, value: string) {
+    for (let i = 0, len = array.length; i < len; i++) {
+      if (value === array[i]) {
+        return true
+      }
+    }
+    return false
+  }
+
   head() {
     return {
       title: process.env.title,
       link: [
         {
           rel: 'canonical',
-          href: process.env.BASE_URL,
-        },
+          href: process.env.BASE_URL
+        }
       ],
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.BASE_URL,
+          content: process.env.BASE_URL
         },
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary_large_image',
+          content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: process.env.title,
+          content: process.env.title
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: process.env.description,
+          content: process.env.description
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: process.env.BASE_URL + 'ogp.png',
+          content: process.env.BASE_URL + 'ogp.png'
         },
         {
           hid: 'twitter:url',
           name: 'twitter:url',
-          content: process.env.BASE_URL,
-        },
-      ],
+          content: process.env.BASE_URL
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 
