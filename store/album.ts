@@ -84,7 +84,7 @@ export default class Album extends VuexModule {
 
   @Action
   async addAllPhotos(data: { year: string; month: string; id: string }) {
-    console.log('AllPhotos')
+    console.log('addAllPhotos')
     const docUsers = db.collection(`owl/${data.year}/${data.month}/`)
     const _monthAlbumOtherPhotos: {}[] = []
     const _monthAlbum: {}[] = []
