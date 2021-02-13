@@ -198,11 +198,11 @@ export default {
         ['@babel/plugin-proposal-class-properties', { loose: true }]
       ]
     },
-    terser: {
-      terserOptions: {
-        compress: { drop_console: true }
-      }
-    },
+    // terser: {
+    //   terserOptions: {
+    //     compress: { drop_console: true }
+    //   }
+    // },
     loaders: {
       vue: {
         transformAssetUrls: {

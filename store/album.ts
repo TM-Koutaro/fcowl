@@ -11,7 +11,7 @@ export default class Album extends VuexModule {
   path: string = ''
   allDatePhotos: number[] = []
   allPhotos: string[] = []
-  monthAlbumPhotos: { [index: string]: string } = {}
+  monthAlbumPhoto: { [index: string]: string } = {}
   monthAlbumOtherPhotos: string = ''
   monthAlbum: { [index: string]: string }[] = []
   photo: string = ''
@@ -29,7 +29,7 @@ export default class Album extends VuexModule {
   }
 
   get getMonthAlbumPhoto() {
-    return this.monthAlbumPhotos
+    return this.monthAlbumPhoto
   }
 
   get getMonthAlbumOtherPhotos() {
@@ -64,7 +64,7 @@ export default class Album extends VuexModule {
 
   @Mutation
   setMonthAlbumPhoto(data: {}) {
-    this.monthAlbumPhotos = data
+    this.monthAlbumPhoto = data
   }
 
   @Mutation
@@ -112,6 +112,7 @@ export default class Album extends VuexModule {
         throw e
       })
     if (data.id) {
+      console.log('true', _monthAlbumPhoto)
       // アルバムページの場合
       this.context.commit(
         'setPath',
@@ -218,8 +219,8 @@ export default class Album extends VuexModule {
   deleteDB(data: { [index: string]: string }) {
     return new Promise((resolve: (value: void) => void) => {
       console.log('deleteDB')
-      const imgName = this.monthAlbumPhotos.imgSrc.substr(
-        this.monthAlbumPhotos.imgSrc.lastIndexOf('/') + 1
+      const imgName = this.monthAlbumPhoto.imgSrc.substr(
+        this.monthAlbumPhoto.imgSrc.lastIndexOf('/') + 1
       )
       const fileName = `${data.year}/${data.month}/${imgName}`
       db.collection(`owl/${data.year}/${data.month}`)
