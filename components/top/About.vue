@@ -1,23 +1,25 @@
 <template lang="pug">
-#about.about(ref="about")
+#about.about(ref='about')
   section
     h3(v-html='pageSingle.title.rendered')
     .about__contents(v-html='pageSingle.content.rendered')
-    .about__close(@click="closePopup") 閉じる
+    .about__close(@click='closePopup') 閉じる
 </template>
 
 <script>
-export default {
+import { Vue, Component } from 'nuxt-property-decorator'
+
+@Component({
   props: {
     pageSingle: {
       default: () => {},
       type: Object
     }
-  },
-  methods: {
-    closePopup() {
-      this.$refs.about.style.display = ''
-    }
+  }
+})
+export default class About extends Vue {
+  closePopup() {
+    this.$refs.about.style.display = ''
   }
 }
 </script>

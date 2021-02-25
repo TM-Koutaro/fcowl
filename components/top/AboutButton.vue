@@ -5,8 +5,10 @@
 </template>
 
 <script>
+import { Vue, Component } from 'nuxt-property-decorator'
 import Popper from '~/components/svg/Popper.vue'
-export default {
+
+@Component({
   components: {
     Popper
   },
@@ -15,33 +17,35 @@ export default {
       default: '',
       type: String
     }
-  },
+  }
+})
+export default class AboutButton extends Vue {
   activated() {
     console.log('activated')
     window.addEventListener('scroll', this.handleScroll)
-  },
+  }
+
   deactivated() {
     console.log('破壊')
     window.removeEventListener('scroll', this.handleScroll)
-  },
-  methods: {
-    handleScroll() {
-      const endBotton =
-        document.getElementsByTagName('footer')[0].getBoundingClientRect()
-          .bottom - window.innerHeight
-      if (
-        endBotton <=
-        document.getElementsByTagName('footer')[0].getBoundingClientRect()
-          .height
-      ) {
-        this.$el.classList.add('on')
-      } else {
-        this.$el.classList.remove('on')
-      }
-    },
-    openAbout() {
-      document.getElementById('about').style.display = 'block'
+  }
+
+  handleScroll() {
+    const endBotton =
+      document.getElementsByTagName('footer')[0].getBoundingClientRect()
+        .bottom - window.innerHeight
+    if (
+      endBotton <=
+      document.getElementsByTagName('footer')[0].getBoundingClientRect().height
+    ) {
+      this.$el.classList.add('on')
+    } else {
+      this.$el.classList.remove('on')
     }
+  }
+
+  openAbout() {
+    document.getElementById('about').style.display = 'block'
   }
 }
 </script>
