@@ -80,8 +80,7 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    { src: '~plugins/global_filter.js' },
-    { src: '~plugins/lazyload.js' }
+    { src: '~plugins/global_filter.ts', mode: 'client' },
   ],
   /*
    ** Auto import components
