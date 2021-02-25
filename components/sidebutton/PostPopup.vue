@@ -41,12 +41,20 @@
 </template>
 
 <script>
+import { Vue, Component } from 'nuxt-property-decorator'
 import { mapGetters } from 'vuex'
 import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/index.css'
 
-export default {
+@Component({
   components: { DatePicker },
+  computed: {
+    ...mapGetters({
+      getStatus: 'login/getStatus'
+    })
+  }
+})
+export default class PostPopup extends Vue {
   data() {
     return {
       user: {
@@ -55,142 +63,144 @@ export default {
         message: ''
       }
     }
-  },
-  computed: {
-    ...mapGetters({
-      getStatus: 'login/getStatus'
-    })
-  },
-  methods: {
-    popupClose() {
-      this.user.imgSrc = ''
-      this.user.yearMonth = ''
-      this.user.message = ''
-      location.reload()
-    },
-    dragEnter() {
-      if (!this.$refs.popup__input.classList.contains('mouseOn')) {
-        this.$refs.popup__input.classList.add('mouseOn')
+  }
+
+  popupClose() {
+    this.user.imgSrc = ''
+    this.user.yearMonth = ''
+    this.user.message = ''
+    location.reload()
+  }
+
+  dragEnter() {
+    if (!this.$refs.popup__input.classList.contains('mouseOn')) {
+      this.$refs.popup__input.classList.add('mouseOn')
+    }
+  }
+
+  dragLeave() {
+    if (this.$refs.popup__input.classList.contains('mouseOn')) {
+      this.$refs.popup__input.classList.remove('mouseOn')
+    }
+  }
+
+  base64toBlob(base64) {
+    const tmp = base64.split(',')
+    const data = atob(tmp[1])
+    const mime = tmp[0].split(':')[1].split(';')[0]
+    const buf = new Uint8Array(data.length)
+    for (let i = 0; i < data.length; i++) {
+      buf[i] = data.charCodeAt(i)
+    }
+    const blob = new Blob([buf], { type: mime })
+    return blob
+  }
+
+  formatImage(file) {
+    const validImageTypes = [
+      'image/gif',
+      'image/jpeg',
+      'image/jpg',
+      'image/png'
+    ]
+    if (file[0].size <= 20000000) {
+      if (validImageTypes.includes(file[0].type)) {
+        // 画像リサイズ処理
+        document.getElementById('loading').classList.add('on')
+        const fileReader = new FileReader()
+        fileReader.onload = (event) => {
+          const image = new Image()
+          image.onload = () => {
+            const canvas = document.createElement('canvas')
+            const context = canvas.getContext('2d')
+            // 横幅を 1000px に合わせてリサイズ
+            canvas.width = 1000
+            canvas.height = image.height * (canvas.width / image.width)
+            context.drawImage(
+              image,
+              0,
+              0,
+              image.width,
+              image.height,
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            )
+            // base64に変換し input に再代入と imgSrc にも登録
+            const base64 = canvas.toDataURL('image/jpeg')
+            this.$refs.popup__file = this.base64toBlob(base64)
+            this.$refs.popup__file.name = file[0].name
+            this.user.imgSrc = this.$refs.popup__file
+            document.getElementById('loading').classList.remove('on')
+          }
+          image.src = event.target.result
+        }
+        fileReader.readAsDataURL(file[0])
+      } else {
+        window.alert('画像のみ添付できます')
       }
-    },
-    dragLeave() {
       if (this.$refs.popup__input.classList.contains('mouseOn')) {
         this.$refs.popup__input.classList.remove('mouseOn')
       }
-    },
-    base64toBlob(base64) {
-      const tmp = base64.split(',')
-      const data = atob(tmp[1])
-      const mime = tmp[0].split(':')[1].split(';')[0]
-      const buf = new Uint8Array(data.length)
-      for (let i = 0; i < data.length; i++) {
-        buf[i] = data.charCodeAt(i)
-      }
-      const blob = new Blob([buf], { type: mime })
-      return blob
-    },
-    formatImage(file) {
-      const validImageTypes = [
-        'image/gif',
-        'image/jpeg',
-        'image/jpg',
-        'image/png'
-      ]
-      if (file[0].size <= 20000000) {
-        if (validImageTypes.includes(file[0].type)) {
-          // 画像リサイズ処理
-          document.getElementById('loading').classList.add('on')
-          const fileReader = new FileReader()
-          fileReader.onload = (event) => {
-            const image = new Image()
-            image.onload = () => {
-              const canvas = document.createElement('canvas')
-              const context = canvas.getContext('2d')
-              // 横幅を 1000px に合わせてリサイズ
-              canvas.width = 1000
-              canvas.height = image.height * (canvas.width / image.width)
-              context.drawImage(
-                image,
-                0,
-                0,
-                image.width,
-                image.height,
-                0,
-                0,
-                canvas.width,
-                canvas.height
-              )
-              // base64に変換し input に再代入と imgSrc にも登録
-              const base64 = canvas.toDataURL('image/jpeg')
-              this.$refs.popup__file = this.base64toBlob(base64)
-              this.$refs.popup__file.name = file[0].name
-              this.user.imgSrc = this.$refs.popup__file
-              document.getElementById('loading').classList.remove('on')
-            }
-            image.src = event.target.result
-          }
-          fileReader.readAsDataURL(file[0])
-        } else {
-          window.alert('画像のみ添付できます')
-        }
-        if (this.$refs.popup__input.classList.contains('mouseOn')) {
-          this.$refs.popup__input.classList.remove('mouseOn')
-        }
-      } else {
-        window.alert('画像のファイルサイズが大きすぎます')
-      }
-    },
-    drop(e) {
-      const file = e.dataTransfer.files
-      this.formatImage(file)
-    },
-    jsPopupToggle() {
-      if (this.$refs.popup.classList.contains('on')) {
-        this.$refs.popup.classList.remove('on')
-      } else {
-        this.$refs.popup.classList.add('on')
-      }
-    },
-    onFileChange(e) {
-      const file = e.target.files
-      this.formatImage(file)
-    },
-    submit() {
-      if (window.confirm('投稿しますか？')) {
-        if (this.user.imgSrc === '') {
-          window.alert('画像が添付されておりません')
-        } else if (this.user.yearMonth === '' || this.user.yearMonth === null) {
-          window.alert('掲載日が指定されておりません')
-        } else if (this.user.message === '') {
-          window.alert('メッセージ内容が入力されておりません')
-        } else {
-          document.getElementById('loading').classList.add('on')
-          const month = new Date(this.user.yearMonth).getMonth() + 1
-          const year = new Date(this.user.yearMonth).getFullYear()
-          const fileId = Math.floor(Math.random() * 999)
-          const fileName = `${year}/${month}/owl_${fileId}_${this.user.imgSrc.name}`
-          const downloadURL =
-            'https://d15reupfu87sxr.cloudfront.net/' + fileName
-          this.$store
-            .dispatch('album/addPhoto', {
-              month,
-              year,
-              fileName,
-              downloadURL,
-              imgSrc: this.user.imgSrc,
-              message: this.user.message,
-              name: this.getStatus.name,
-              uid: this.getStatus.uid
-            })
-            .then(() => {
-              this.popupClose()
-            })
-        }
-      }
-    },
-    close() {
-      this.$refs.popup.classList.remove('on')
+    } else {
+      window.alert('画像のファイルサイズが大きすぎます')
     }
+  }
+
+  drop(e) {
+    const file = e.dataTransfer.files
+    this.formatImage(file)
+  }
+
+  jsPopupToggle() {
+    if (this.$refs.popup.classList.contains('on')) {
+      this.$refs.popup.classList.remove('on')
+    } else {
+      this.$refs.popup.classList.add('on')
+    }
+  }
+
+  onFileChange(e) {
+    const file = e.target.files
+    this.formatImage(file)
+  }
+
+  submit() {
+    if (window.confirm('投稿しますか？')) {
+      if (this.user.imgSrc === '') {
+        window.alert('画像が添付されておりません')
+      } else if (this.user.yearMonth === '' || this.user.yearMonth === null) {
+        window.alert('掲載日が指定されておりません')
+      } else if (this.user.message === '') {
+        window.alert('メッセージ内容が入力されておりません')
+      } else {
+        document.getElementById('loading').classList.add('on')
+        const month = new Date(this.user.yearMonth).getMonth() + 1
+        const year = new Date(this.user.yearMonth).getFullYear()
+        const fileId = Math.floor(Math.random() * 999)
+        const fileName = `${year}/${month}/owl_${fileId}_${this.user.imgSrc.name}`
+        const downloadURL = 'https://d15reupfu87sxr.cloudfront.net/' + fileName
+        this.$store
+          .dispatch('album/addPhoto', {
+            month,
+            year,
+            fileName,
+            downloadURL,
+            imgSrc: this.user.imgSrc,
+            message: this.user.message,
+            name: this.getStatus.name,
+            uid: this.getStatus.uid
+          })
+          .then(() => {
+            this.popupClose()
+          })
+      }
+    }
+  }
+
+  close() {
+    this.$refs.popup.classList.remove('on')
   }
 }
 </script>
