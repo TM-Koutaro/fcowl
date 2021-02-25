@@ -5,14 +5,15 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    start() {
-      document.getElementById('loading').classList.add('on')
-    },
-    finish() {
-      document.getElementById('loading').classList.remove('on')
-    }
+import { Vue, Component } from 'nuxt-property-decorator'
+@Component({})
+export default class Loading extends Vue {
+  start() {
+    document.getElementById('loading').classList.add('on')
+  }
+
+  finish() {
+    document.getElementById('loading').classList.remove('on')
   }
 }
 </script>

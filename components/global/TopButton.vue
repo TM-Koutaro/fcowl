@@ -4,14 +4,16 @@ p.button
 </template>
 
 <script>
-export default {
+import { Vue, Component } from 'nuxt-property-decorator'
+@Component({
   props: {
     buttonId: {
       default: '',
       type: String
     }
   }
-}
+})
+export default class TopButton extends Vue {}
 </script>
 
 <style lang="scss" scoped>

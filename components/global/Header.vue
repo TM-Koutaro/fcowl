@@ -8,14 +8,15 @@ header.header
 </template>
 
 <script>
+import { Component, Vue } from 'nuxt-property-decorator'
 import Login from '~/components/header/Login.vue'
 
-export default {
-  name: 'Header',
+@Component({
   components: {
     Login
   }
-}
+})
+export default class Header extends Vue {}
 </script>
 
 <style lang="scss" scoped>

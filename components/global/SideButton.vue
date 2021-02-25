@@ -30,9 +30,10 @@ div
 </template>
 
 <script>
+import { Vue, Component } from 'nuxt-property-decorator'
 import PostPopup from '~/components/sidebutton/PostPopup.vue'
 
-export default {
+@Component({
   components: {
     PostPopup
   },
@@ -49,39 +50,41 @@ export default {
       default: '',
       type: String
     }
-  },
-  methods: {
-    jsDeleteSend() {
-      if (window.confirm('本当に削除しますか？')) {
-        this.jsDeleteToggle()
-        document.getElementById('loading').classList.add('on')
-        this.$store
-          .dispatch('album/deleteDB', {
-            id: this.$route.query.id,
-            year: this.$route.query.year,
-            month: this.$route.query.month
+  }
+})
+export default class SideButton extends Vue {
+  jsDeleteSend() {
+    if (window.confirm('本当に削除しますか？')) {
+      this.jsDeleteToggle()
+      document.getElementById('loading').classList.add('on')
+      this.$store
+        .dispatch('album/deleteDB', {
+          id: this.$route.query.id,
+          year: this.$route.query.year,
+          month: this.$route.query.month
+        })
+        .then(() => {
+          this.$store.dispatch('album/deletePhoto').then(() => {
+            window.alert('削除が完了しました')
+            location.href = '/'
           })
-          .then(() => {
-            this.$store.dispatch('album/deletePhoto').then(() => {
-              window.alert('削除が完了しました')
-              location.href = '/'
-            })
-          })
-      }
-    },
-    jsDeleteToggle() {
-      if (this.$refs.delete.classList.contains('on')) {
-        this.$refs.delete.classList.remove('on')
-      } else {
-        this.$refs.delete.classList.add('on')
-      }
-    },
-    jsPopupToggle() {
-      if (document.getElementById('popup').classList.contains('on')) {
-        document.getElementById('popup').classList.remove('on')
-      } else {
-        document.getElementById('popup').classList.add('on')
-      }
+        })
+    }
+  }
+
+  jsDeleteToggle() {
+    if (this.$refs.delete.classList.contains('on')) {
+      this.$refs.delete.classList.remove('on')
+    } else {
+      this.$refs.delete.classList.add('on')
+    }
+  }
+
+  jsPopupToggle() {
+    if (document.getElementById('popup').classList.contains('on')) {
+      document.getElementById('popup').classList.remove('on')
+    } else {
+      document.getElementById('popup').classList.add('on')
     }
   }
 }

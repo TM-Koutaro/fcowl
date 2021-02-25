@@ -6,7 +6,8 @@ NuxtLink.block.active-link(
 </template>
 
 <script>
-export default {
+import { Component, Vue } from 'nuxt-property-decorator'
+@Component({
   props: {
     id: {
       default: '',
@@ -21,7 +22,8 @@ export default {
       type: String
     }
   }
-}
+})
+export default class Block extends Vue {}
 </script>
 
 <style lang="scss" scoped>

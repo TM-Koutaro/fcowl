@@ -4,7 +4,8 @@
 </template>
 
 <script>
-export default {
+import { Vue } from 'nuxt-property-decorator'
+export default class BgAnimation extends Vue {
   mounted() {
     /* eslint-disable */
     class Petal {
