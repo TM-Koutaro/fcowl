@@ -1,5 +1,5 @@
-import firebase from '@/plugins/firebase'
-import s3 from '@/plugins/aws'
+import firebase from '@/plugins/firebase.ts'
+import s3 from '@/plugins/aws.ts'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 
 const db = firebase.firestore()

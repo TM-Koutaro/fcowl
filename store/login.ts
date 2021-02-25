@@ -1,4 +1,4 @@
-import firebase from '@/plugins/firebase'
+import firebase from '@/plugins/firebase.ts'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 const provider = new firebase.auth.TwitterAuthProvider()
 
