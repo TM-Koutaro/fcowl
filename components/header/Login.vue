@@ -13,28 +13,32 @@
 </template>
 
 <script>
+import { Vue, Component } from 'nuxt-property-decorator'
 import { mapGetters } from 'vuex'
 
-export default {
+@Component({
   computed: {
     ...mapGetters({
       getStatus: 'login/getStatus'
     })
-  },
+  }
+})
+export default class Login extends Vue {
   mounted() {
     this.twitterLoginCheck()
-  },
-  methods: {
-    twitterLoginCheck() {
-      this.$store.dispatch('login/twitterLoginCheck')
-    },
-    twitterLogin() {
-      this.$store.dispatch('login/twitterLogin')
-    },
-    twitterLogout() {
-      if (window.confirm('ログアウトしますか？')) {
-        this.$store.dispatch('login/twitterLogout')
-      }
+  }
+
+  twitterLoginCheck() {
+    this.$store.dispatch('login/twitterLoginCheck')
+  }
+
+  twitterLogin() {
+    this.$store.dispatch('login/twitterLogin')
+  }
+
+  twitterLogout() {
+    if (window.confirm('ログアウトしますか？')) {
+      this.$store.dispatch('login/twitterLogout')
     }
   }
 }
