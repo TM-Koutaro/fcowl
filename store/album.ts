@@ -94,7 +94,7 @@ export default class Album extends VuexModule {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const picData: { [index: string]: string } = doc.data()
+          const picData: { [index: string]: any } = doc.data()
           picData.id = doc.id
           if (data.id) {
             // アルバムページの場合
@@ -111,6 +111,10 @@ export default class Album extends VuexModule {
       .catch((e) => {
         throw e
       })
+    const compare = (a: any, b: any): number =>
+      +new Date(b.timestamp * 1000) - +new Date(a.timestamp * 1000)
+    _monthAlbumOtherPhotos.sort(compare)
+    _monthAlbum.sort(compare)
     if (data.id) {
       // アルバムページの場合
       this.context.commit(
