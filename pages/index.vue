@@ -14,7 +14,7 @@
           .swiper-lazy-preloader
           NuxtLink(:to='`/article/${article.id}/`')
             New.new(
-              v-if='(new Date() - new Date(article.date)) / 86400000 < 7'
+              v-if='($dayjs() - $dayjs(article.date)) / 86400000 < 7'
             )
             h3(v-html='article.title.rendered')
       .swiper-button-prev prev

@@ -1,7 +1,13 @@
-import Vue from 'vue'
+import { Vue } from 'nuxt-property-decorator'
 
-Vue.filter('unEscapeHTML', (str) => {
-  return str
+declare module 'vue/types/vue' {
+  interface Vue {
+    $unEscapeHTML(str: string): void
+  }
+}
+
+Vue.prototype.$unEscapeHTML = (str: string) =>
+  str
     .replace(/(<)/g, '&lt;')
     .replace(/(>)/g, '&gt;')
     .replace(/(&amp;)/g, '&')
@@ -23,4 +29,3 @@ Vue.filter('unEscapeHTML', (str) => {
     .replace(/(&copy;)/g, '©')
     .replace(/(&quot;)/g, "'")
     .replace(/(&#39;)/g, "'")
-})

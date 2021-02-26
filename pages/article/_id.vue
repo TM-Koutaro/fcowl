@@ -6,7 +6,7 @@
   article.article(ref='article')
     h1(v-html='downloadSinglePage.title.rendered')
     p.time(
-      v-html='`${new Date(downloadSinglePage.date).getFullYear()}-${new Date(downloadSinglePage.date).getMonth() + 1}-${new Date(downloadSinglePage.date).getDate()}`'
+      v-html='`${$dayjs(downloadSinglePage.date).year()}-${$dayjs(downloadSinglePage.date).month() + 1}-${$dayjs(downloadSinglePage.date).date()}`'
     )
     .article__contents(v-html='downloadSinglePage.content.rendered')
     .article__twitter
@@ -81,6 +81,7 @@ export default class Article extends Vue {
   private title?: string
   private description?: string
   private ogpImg?: string
+  declare $unEscapeHTML: Function
 
   data() {
     return {
@@ -91,12 +92,6 @@ export default class Article extends Vue {
   $refs!: {
     article: HTMLElement
     articleWriter: HTMLElement
-  }
-
-  $options!: {
-    filters: {
-      unEscapeHTML: Function
-    }
   }
 
   activated() {
@@ -124,7 +119,7 @@ export default class Article extends Vue {
 
   head() {
     return {
-      title: this.$options.filters.unEscapeHTML(this.title),
+      title: this.$unEscapeHTML(this.title),
       link: [
         {
           rel: 'canonical',
@@ -140,7 +135,7 @@ export default class Article extends Vue {
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.$options.filters.unEscapeHTML(this.title)
+          content: this.$unEscapeHTML(this.title)
         },
         {
           hid: 'og:description',
@@ -165,7 +160,7 @@ export default class Article extends Vue {
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: this.$options.filters.unEscapeHTML(this.title)
+          content: this.$unEscapeHTML(this.title)
         },
         {
           hid: 'twitter:description',

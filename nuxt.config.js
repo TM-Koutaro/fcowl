@@ -79,9 +79,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    { src: '~plugins/global_filter.ts', mode: 'client' },
-  ],
+  plugins: [{ src: '~/plugins/global_filter.ts' }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -116,7 +114,8 @@ export default {
     // '@nuxtjs/manifest',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/dayjs'
   ],
   /*
    ** Sitemap
@@ -132,6 +131,12 @@ export default {
    **/
   gtm: {
     id: 'GTM-MC9B567'
+  },
+  /*
+   * dayjs
+   **/
+  dayjs: {
+    defaultLocale: 'ja'
   },
   /*
    ** env

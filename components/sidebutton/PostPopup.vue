@@ -176,8 +176,8 @@ export default class PostPopup extends Vue {
         window.alert('メッセージ内容が入力されておりません')
       } else {
         document.getElementById('loading').classList.add('on')
-        const month = new Date(this.user.yearMonth).getMonth() + 1
-        const year = new Date(this.user.yearMonth).getFullYear()
+        const month = this.$dayjs(this.user.yearMonth).month() + 1
+        const year = this.$dayjs(this.user.yearMonth).year()
         const fileId = Math.floor(Math.random() * 999)
         const fileName = `${year}/${month}/owl_${fileId}_${this.user.imgSrc.name}`
         const downloadURL = 'https://d15reupfu87sxr.cloudfront.net/' + fileName
