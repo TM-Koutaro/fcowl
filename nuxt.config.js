@@ -96,8 +96,7 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/netlify-files',
-    '@nuxtjs/gtm'
+    '@nuxtjs/netlify-files'
   ],
   /*
    * safari無限ロード対策
@@ -125,12 +124,6 @@ export default {
     hostname: 'https://fcowl.com/',
     exclude: ['/album'],
     routes: articlesId
-  },
-  /*
-   * GTM
-   **/
-  gtm: {
-    id: 'GTM-MC9B567'
   },
   /*
    * dayjs
