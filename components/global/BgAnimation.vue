@@ -4,8 +4,7 @@
 </template>
 
 <script>
-import { Vue } from 'nuxt-property-decorator'
-export default class BgAnimation extends Vue {
+export default {
   mounted() {
     /* eslint-disable */
     class Petal {
@@ -20,7 +19,7 @@ export default class BgAnimation extends Vue {
           axis: 'X',
           value: 0,
           speed: 0,
-          x: 0,
+          x: 0
         }
         if (config.rotation && typeof config.rotation === 'object') {
           this.rotation.axis = config.rotation.axis || this.rotation.axis
@@ -176,11 +175,11 @@ export default class BgAnimation extends Vue {
       new Petal({ customClass: 'petal-style1' }),
       new Petal({ customClass: 'petal-style2' }),
       new Petal({ customClass: 'petal-style3' }),
-      new Petal({ customClass: 'petal-style4' }),
+      new Petal({ customClass: 'petal-style4' })
     ]
     const myBlossomSceneConfig = {
       id: 'cherry-blossom',
-      petalsTypes,
+      petalsTypes
     }
     const myBlossomScene = new BlossomScene(myBlossomSceneConfig)
     /* eslint-enable */

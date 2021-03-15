@@ -19,8 +19,11 @@
             h3(v-html='article.title.rendered')
       .swiper-button-prev prev
       .swiper-button-next next
+  section
+    h2 Member
+    Member
   section.blocks
-    h2 Album
+    h2 Peko Studio
     template(v-for='thisYear in getAllDatePhotos')
       template(v-for='thisMonth in thisYear[1]')
         h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
@@ -54,6 +57,7 @@ import { Context } from '@nuxt/types'
 import { Swiper, Navigation, Lazy } from 'swiper'
 import About from '~/components/top/About.vue'
 import AboutButton from '~/components/top/AboutButton.vue'
+import Member from '~/components/top/Member.vue'
 Swiper.use([Navigation, Lazy])
 
 @Component({
@@ -91,7 +95,8 @@ Swiper.use([Navigation, Lazy])
   }),
   components: {
     About,
-    AboutButton
+    AboutButton,
+    Member
   }
 })
 export default class Top extends Vue {
