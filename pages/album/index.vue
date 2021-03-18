@@ -163,7 +163,7 @@ export default class Album extends Vue {
   h2 {
     color: $main_color;
     text-align: center;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
   }
 
@@ -209,7 +209,7 @@ export default class Album extends Vue {
 
   @include mq-down(md) {
     h2 {
-      font-size: get_vw(16);
+      font-size: get_vw(26);
     }
 
     .album {

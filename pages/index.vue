@@ -20,7 +20,7 @@
       .swiper-button-prev prev
       .swiper-button-next next
   section
-    h2 Member
+    h2 Members Introduction
     Member
   section.blocks
     h2 Peko Studio
@@ -396,7 +396,7 @@ export default class Top extends Vue {
     }
 
     section ~ section {
-      margin-top: 60px;
+      margin-top: get_vw(40);
     }
 
     .swiper {
@@ -413,7 +413,7 @@ export default class Top extends Vue {
     }
 
     h2 {
-      font-size: get_vw(20);
+      font-size: get_vw(26);
       margin-bottom: 20px;
       svg {
         width: get_vw(200);
@@ -425,7 +425,7 @@ export default class Top extends Vue {
         width: 100%;
         height: 200px;
         .title {
-          font-size: get_vw(20);
+          font-size: get_vw(24);
         }
       }
     }

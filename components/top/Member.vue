@@ -6,6 +6,15 @@
     p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
     video.video(autoplay, loop, muted)
       source(src='movie/peko.mp4')
+  ul.member__list
+    li
+      img(src='img/member_peko.png')
+    li
+      img(src='img/member_peko.png')
+    li
+      img(src='img/member_peko.png')
+    li
+      img(src='img/member_peko.png')
 </template>
 
 <script>
@@ -70,13 +79,13 @@ export default class Member extends Vue {
 <style lang="scss" scoped>
 .member {
   width: 100%;
-  height: 400px;
   color: $main_color;
   font-weight: bold;
   box-sizing: border-box;
   mix-blend-mode: darken;
 
-  &__inner {
+  &__inner,
+  &__list {
     max-width: 800px;
     position: relative;
     margin: 0 auto;
@@ -115,6 +124,62 @@ export default class Member extends Vue {
     right: -100px;
     top: 0;
     z-index: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+    li {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      box-sizing: border-box;
+      background: $main_color;
+
+      & ~ li {
+        margin-left: 10px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+    }
+  }
+
+  @include mq-down(md) {
+    &__inner,
+    &__list {
+      max-width: 100%;
+      padding: 0 get_vw(10);
+      box-sizing: border-box;
+    }
+
+    &__name {
+      padding-top: get_vw(20);
+      height: get_vw(30);
+    }
+
+    &__description {
+      max-width: 100%;
+    }
+
+    &__list {
+      & ~ li {
+        margin-left: get_vw(10);
+      }
+    }
+
+    video {
+      display: none;
+    }
   }
 }
 </style>
