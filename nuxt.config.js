@@ -20,6 +20,9 @@ const {
 } = process.env
 
 export default {
+  server: {
+    host: '0' // デフォルト: localhost
+  },
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
@@ -96,7 +99,8 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/netlify-files'
+    '@nuxtjs/netlify-files',
+    '@nuxtjs/device'
   ],
   /*
    * safari無限ロード対策

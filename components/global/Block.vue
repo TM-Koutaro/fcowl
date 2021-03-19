@@ -90,7 +90,7 @@ export default class Block extends Vue {}
     width: 100%;
 
     &__img {
-      height: 200px;
+      height: get_vw(200);
     }
   }
 }

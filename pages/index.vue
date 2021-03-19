@@ -4,37 +4,54 @@
   section#blog
     h2
       BlogLogo(data-text='地下放送オウル・ウォッチ')
-    .swiper
+    .blog-swiper.swiper
       .swiper-wrapper
-        .swiper-slide.swiper-lazy(
+        .blog-swiper-slide.swiper-slide.swiper-lazy(
           v-for='(article, index) in getWp',
           :key='article.id',
           :data-background='article.better_featured_image.source_url'
         )
           .swiper-lazy-preloader
           NuxtLink(:to='`/article/${article.id}/`')
-            New.new(
-              v-if='($dayjs() - $dayjs(article.date)) / 86400000 < 7'
-            )
+            New.new(v-if='($dayjs() - $dayjs(article.date)) / 86400000 < 7')
             h3(v-html='article.title.rendered')
-      .swiper-button-prev prev
-      .swiper-button-next next
+      .blog-swiper-button-prev.swiper-button-prev prev
+      .blog-swiper-button-prev.swiper-button-next next
   section
     h2 Members Introduction
     Member
   section.blocks
     h2 Peko Studio
-    template(v-for='thisYear in getAllDatePhotos')
-      template(v-for='thisMonth in thisYear[1]')
-        h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
-          span.title {{ `${thisYear[0]}/${thisMonth}` }}
-        template(v-for='photo in extractMonth(`${thisYear[0]}/${thisMonth}`)')
-          Block(
-            :key='photo.id',
-            :id='photo.id',
-            :postMonth='photo.postMonth',
-            :imgSrc='photo.imgSrc'
+    template(v-if='$device.isDesktopOrTablet')
+      template(v-for='thisYear in getAllDatePhotos')
+        template(v-for='thisMonth in thisYear[1]')
+          h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
+            span.title {{ `${thisYear[0]}/${thisMonth}` }}
+          template(
+            v-for='photo in extractMonth(`${thisYear[0]}/${thisMonth}`)'
           )
+            Block(
+              :key='photo.id',
+              :id='photo.id',
+              :postMonth='photo.postMonth',
+              :imgSrc='photo.imgSrc'
+            )
+    template(v-else-if='$device.isMobile')
+      template(v-for='thisYear in getAllDatePhotos')
+        template(v-for='thisMonth in thisYear[1]')
+          h3(:id='"album_" + replaceAlbumText(`${thisYear[0]}/${thisMonth}`)')
+            span.title {{ `${thisYear[0]}/${thisMonth}` }}
+          .swiper-container.swiper
+            .swiper-wrapper
+              .swiper-slide(
+                v-for='photo in extractMonth(`${thisYear[0]}/${thisMonth}`)'
+              )
+                Block(
+                  :key='photo.id',
+                  :id='photo.id',
+                  :postMonth='photo.postMonth',
+                  :imgSrc='photo.imgSrc'
+                )
   section.calendar
     h2 Calendar
     iframe(
@@ -119,14 +136,23 @@ export default class Top extends Vue {
         for (let m = 0; m < this.getAllDatePhotos[y][1].length; m++) {
           // 該当月の分だけデータを取得
           const month: string = this.getAllDatePhotos[y][1][m]
-          this.$store.dispatch('album/addAllPhotos', {
-            year,
-            month
-          })
+          this.$store
+            .dispatch('album/addAllPhotos', {
+              year,
+              month
+            })
+            .then(() => {
+              if (
+                y === this.getAllDatePhotos.length - 1 &&
+                m === this.getAllDatePhotos[y][1].length - 1
+              ) {
+                this.swiperContainer()
+              }
+            })
         }
       }
     })
-    new Swiper('.swiper', {
+    new Swiper('.blog-swiper', {
       preloadImages: false,
       lazy: {
         loadPrevNext: true
@@ -147,6 +173,22 @@ export default class Top extends Vue {
           slidesPerGroup: 3
         }
       }
+    })
+  }
+
+  swiperContainer() {
+    document.querySelectorAll('.swiper-container').forEach((e, index) => {
+      e.classList.add(`instance-${index}`)
+      new Swiper(`.instance-${index}`, {
+        preloadImages: false,
+        lazy: {
+          loadPrevNext: true
+        },
+        centeredSlides: true,
+        loop: true,
+        slidesPerView: 1,
+        slidesPerGroup: 1
+      })
     })
   }
 
@@ -248,7 +290,7 @@ export default class Top extends Vue {
   height: 100%;
   font-size: 16px;
 
-  .swiper {
+  .blog-swiper {
     position: relative;
     overflow: hidden;
     &-slide {
@@ -328,6 +370,10 @@ export default class Top extends Vue {
     }
   }
 
+  .swiper-container {
+    width: 100%;
+  }
+
   section ~ section {
     margin-top: 80px;
   }
@@ -399,7 +445,7 @@ export default class Top extends Vue {
       margin-top: get_vw(40);
     }
 
-    .swiper {
+    .blog-swiper {
       &-slide {
         height: get_vw(200);
         h3 {

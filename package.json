@@ -30,6 +30,7 @@
   "devDependencies": {
     "@nuxt/types": "^2.14.12",
     "@nuxt/typescript-build": "^2.0.4",
+    "@nuxtjs/device": "^2.0.1",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
@@ -39,7 +40,6 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
-    "nuxt-property-decorator": "^2.9.1",
     "aws-sdk": "^2.809.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
@@ -47,6 +47,7 @@
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "firebase": "^7.20.0",
+    "nuxt-property-decorator": "^2.9.1",
     "prettier": "^2.0.5",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",

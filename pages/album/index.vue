@@ -10,7 +10,7 @@
     img.album__img(:src='getPhoto.imgSrc')
     p.album__message(v-html='getPhoto.message')
     p.album__name(v-html='getPhoto.name')
-  .blocks-wrap(v-if='getPhotos.length > 0')
+  .blocks-wrap(v-if='getPhotos.length > 0 && $device.isDesktopOrTablet')
     Block(
       v-for='album in getPhotos',
       :key='album.id',
@@ -18,6 +18,16 @@
       :postMonth='album.postMonth',
       :imgSrc='album.imgSrc'
     )
+  .blocks-wrap(v-if='getPhotos.length > 0 && $device.isMobile')
+    .swiper
+      .swiper-wrapper
+        .swiper-slide(v-for='album in getPhotos')
+          Block(
+            :key='album.id',
+            :id='album.id',
+            :postMonth='album.postMonth',
+            :imgSrc='album.imgSrc'
+          )
   SideButton(
     :isAlbum='isAlbum',
     :message='encodeURIComponent(getPhoto.message)',
@@ -36,6 +46,7 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import { Route, RawLocation } from 'vue-router'
 import { Context } from '@nuxt/types'
 import { mapGetters } from 'vuex'
+import { Swiper } from 'swiper'
 
 @Component({
   scrollToTop: true,
@@ -95,6 +106,19 @@ export default class Album extends Vue {
     const myTop = rect.top + scrollTop
     window.scrollTo(0, myTop)
     next()
+  }
+
+  mounted() {
+    new Swiper('.swiper', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true
+      },
+      centeredSlides: true,
+      loop: true,
+      slidesPerView: 1,
+      slidesPerGroup: 1
+    })
   }
 
   head() {
@@ -199,6 +223,11 @@ export default class Album extends Vue {
     display: flex;
     flex-wrap: wrap;
     margin-top: 80px;
+  }
+
+  .swiper {
+    width: 100%;
+    overflow: hidden;
   }
 
   @include mq-down(lg) {
