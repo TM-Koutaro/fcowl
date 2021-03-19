@@ -82,10 +82,11 @@ export default class Block extends Vue {}
 
   &__img {
     width: 100%;
-    height: 200px;
+    height: 300px;
     background-size: cover;
     background-position: center center;
   }
+
   @include mq-down(md) {
     width: 100%;
 

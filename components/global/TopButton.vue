@@ -19,7 +19,7 @@ export default class TopButton extends Vue {}
 <style lang="scss" scoped>
 .button {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 60px;
   a,
   button {
     display: block;
@@ -42,7 +42,7 @@ export default class TopButton extends Vue {}
     }
   }
   @include mq-down(md) {
-    margin-top: 40px;
+    margin-top: get_vw(30);
     a,
     button {
       height: get_vw(50);

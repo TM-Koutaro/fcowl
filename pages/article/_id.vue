@@ -23,18 +23,8 @@
       v-if='downloadUser.acf.profile_img'
     )
       img(:src='`${downloadUser.acf.profile_img.url}`')
-  section.relate(v-if='downloadAuthor.length >= 2')
-    h2 他の地下放送も見てくれよな！
-    .relate__articles
-      template(v-for='article in downloadAuthor')
-        NuxtLink.blocks(
-          :to='`/article/${article.id}/`',
-          v-if='article.id != downloadSinglePage.id'
-        )
-          .blocks__img(
-            :style='{ backgroundImage: `url(${article.better_featured_image.source_url})` }'
-          )
-          h3(v-html='article.title.rendered')
+  section.relate(v-if='downloadLatestPage.length > 1')
+    BlogSwiper
   TopButton(:buttonId='buttonId')
   BgAnimation
   Loading
@@ -44,11 +34,13 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 import { Context } from '@nuxt/types'
+import { Swiper, Navigation, Lazy } from 'swiper'
+Swiper.use([Navigation, Lazy])
 
 @Component({
   scrollToTop: true,
   async asyncData(context: Context): Promise<any> {
-    const { route, error } = context
+    const { store, route, error } = context
     const result: any = {}
     await import('~/modules/wp')
       .then(async (module) => {
@@ -67,7 +59,8 @@ import { Context } from '@nuxt/types'
         result.url = process.env.BASE_URL + 'article/' + route.params.id + '/'
         result.userID = result.downloadSinglePage.author!
         // ユーザーの関連記事取得
-        result.downloadAuthor = await wp.downloadAuthor(result.userID)
+        result.downloadLatestPage = await wp.downloadLatestPage()
+        store.commit('wp/setWp', result.downloadLatestPage)
         // ユーザー情報取得
         result.downloadUser = await wp.downloadUser(result.userID)
       })
@@ -92,6 +85,31 @@ export default class Article extends Vue {
   $refs!: {
     article: HTMLElement
     articleWriter: HTMLElement
+  }
+
+  mounted() {
+    new Swiper('.blog-swiper', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true
+      },
+      centeredSlides: true,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          slidesPerGroup: 1
+        },
+        769: {
+          slidesPerView: 3,
+          slidesPerGroup: 3
+        }
+      }
+    })
   }
 
   activated() {
@@ -211,15 +229,6 @@ export default class Article extends Vue {
     }
   }
 
-  .article,
-  .relate {
-    padding-left: 5%;
-    padding-right: 5%;
-    @include mq-down(md) {
-      padding-left: 2%;
-      padding-right: 2%;
-    }
-  }
   .article {
     width: 100%;
     background: $white;
@@ -228,8 +237,8 @@ export default class Article extends Vue {
     margin: 0 auto;
     position: relative;
     z-index: 10;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 5%;
+
     h1 {
       font-size: 2.7rem;
       line-height: 1.2;
@@ -251,7 +260,7 @@ export default class Article extends Vue {
       word-wrap: break-word;
       img {
         display: block;
-        max-width: 800px;
+        max-width: 100%;
         height: auto;
         margin: 30px 0 10px;
         border: 1px solid $main_color;
@@ -295,8 +304,8 @@ export default class Article extends Vue {
       }
     }
     @include mq-down(md) {
-      padding-top: 25px;
-      padding-bottom: 25px;
+      padding: get_vw(25) 2%;
+
       h1 {
         font-size: get_vw(25);
         border-bottom: $black solid 2px;
@@ -326,70 +335,11 @@ export default class Article extends Vue {
       }
     }
   }
+
   .relate {
-    margin-top: 50px;
-    h2 {
-      font-size: 2rem;
-      font-weight: bold;
-      color: $main_color;
-    }
-    &__articles {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      position: relative;
-      z-index: 10;
-    }
-    .blocks {
-      display: flex;
-      align-items: center;
-      width: 31%;
-      background: $white;
-      border-radius: 20px;
-      padding: 10px;
-      margin-top: 20px;
-      text-decoration: none;
-      &__img {
-        width: 150px;
-        height: 150px;
-        border-radius: 100%;
-        background-size: cover;
-        background-position: center center;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      h3 {
-        padding: 7px 20px;
-        font-size: 1.5rem;
-        line-height: 1.5;
-        font-weight: bold;
-        color: $main_color;
-        text-align: center;
-      }
-      &:hover {
-        opacity: 0.8;
-        transition: 0.5s;
-      }
-    }
+    margin-top: 60px;
     @include mq-down(md) {
-      h2 {
-        font-size: get_vw(15);
-      }
-      &__articles {
-        margin-top: 10px;
-      }
-      .blocks {
-        width: 100%;
-        border-radius: 0;
-        h3 {
-          font-size: get_vw(14);
-        }
-        &__img {
-          height: get_vw(75);
-          width: get_vw(75);
-        }
-      }
+      margin-top: get_vw(30);
     }
   }
 }
