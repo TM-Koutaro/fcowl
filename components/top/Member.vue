@@ -1,7 +1,25 @@
 <template lang="pug">
 .member
+  .member__inner.on
+    MemberChoro#animate-svg.member__name
+    p.member__class サイト管理者
+    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
+    video.video(autoplay, loop, muted).choro
+      source(src='movie/tetsu.mp4')
+  .member__inner
+    MemberTetsu#animate-svg.member__name
+    p.member__class サイト管理者
+    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
+    video.video(autoplay, loop, muted)
+      source(src='movie/peko.mp4')
   .member__inner
     MemberPeko#animate-svg.member__name
+    p.member__class サイト管理者
+    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
+    video.video(autoplay, loop, muted)
+      source(src='movie/peko.mp4')
+  .member__inner
+    MemberSeto#animate-svg.member__name
     p.member__class サイト管理者
     p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
     video.video(autoplay, loop, muted)
@@ -84,6 +102,14 @@ export default class Member extends Vue {
   box-sizing: border-box;
   mix-blend-mode: darken;
 
+  &__inner {
+    display: none;
+
+    &.on {
+      display: block;
+    }
+  }
+
   &__inner,
   &__list {
     max-width: 800px;
@@ -124,6 +150,10 @@ export default class Member extends Vue {
     right: -100px;
     top: 0;
     z-index: 0;
+
+    &.choro {
+      height: 600px;
+    }
   }
 
   &__list {
