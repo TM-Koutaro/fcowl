@@ -1,38 +1,23 @@
 <template lang="pug">
 .member
-  .member__inner.on
-    MemberChoro#animate-svg.member__name
-    p.member__class サイト管理者
-    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
-    video.video(autoplay, loop, muted).choro
-      source(src='movie/tetsu.mp4')
   .member__inner
-    MemberTetsu#animate-svg.member__name
-    p.member__class サイト管理者
-    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
-    video.video(autoplay, loop, muted)
-      source(src='movie/peko.mp4')
-  .member__inner
-    MemberPeko#animate-svg.member__name
-    p.member__class サイト管理者
-    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
-    video.video(autoplay, loop, muted)
-      source(src='movie/peko.mp4')
-  .member__inner
-    MemberSeto#animate-svg.member__name
-    p.member__class サイト管理者
-    p.member__description ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。
-    video.video(autoplay, loop, muted)
-      source(src='movie/peko.mp4')
+    p#animate-svg.member__name
+      MemberChoro(v-if='memberList[memberIndex].id === "choro"')
+      MemberTetsu(v-if='memberList[memberIndex].id === "tetsu"')
+      MemberPeko(v-if='memberList[memberIndex].id === "peko"')
+      MemberSeto(v-if='memberList[memberIndex].id === "seto"')
+      MemberPau(v-if='memberList[memberIndex].id === "pau"')
+    p.member__class {{ memberList[memberIndex].class }}
+    p.member__description {{ memberList[memberIndex].description }}
+    video#video.video(autoplay, loop, muted)
+      source(:src='memberList[memberIndex].video')
   ul.member__list
-    li
-      img(src='img/member_peko.png')
-    li
-      img(src='img/member_peko.png')
-    li
-      img(src='img/member_peko.png')
-    li
-      img(src='img/member_peko.png')
+    li(
+      v-for='(member, index) in memberList',
+      :key='member.id',
+      @click='test(index)'
+    )
+      img(:src='member.img')
 </template>
 
 <script>
@@ -42,20 +27,75 @@ import $ from 'jquery'
 
 @Component()
 export default class Member extends Vue {
-  mounted() {
-    console.log('SVG Animation')
+  data() {
+    return {
+      memberIndex: 0,
+      memberList: [
+        {
+          id: 'choro',
+          class: 'サイト管理者',
+          description:
+            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+          video: 'movie/pau.mp4',
+          img: 'img/member_peko.png'
+        },
+        {
+          id: 'tetsu',
+          class: 'サイト管理者',
+          description:
+            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+          video: 'movie/pau.mp4',
+          img: 'img/member_peko.png'
+        },
+        {
+          id: 'peko',
+          class: 'サイト管理者',
+          description:
+            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+          video: 'movie/pau.mp4',
+          img: 'img/member_peko.png'
+        },
+        {
+          id: 'seto',
+          class: 'サイト管理者',
+          description:
+            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+          video: 'movie/pau.mp4',
+          img: 'img/member_peko.png'
+        },
+        {
+          id: 'pau',
+          class: 'サイト管理者',
+          description:
+            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+          video: 'movie/pau.mp4',
+          img: 'img/member_peko.png'
+        }
+      ]
+    }
+  }
+
+  test(i) {
+    document.getElementById('animate-svg').style.opacity = 0
+    this.memberIndex = i
+    setTimeout(() => {
+      this.svgAnimation()
+      document.getElementById('animate-svg').style.opacity = 1
+      document.getElementById('video').play()
+    }, 500)
+  }
+
+  svgAnimation() {
     const tmaxOptionsGlobal = {
-      repeat: -1,
-      repeatDelay: 0.65,
       yoyo: true
     }
 
     CSSPlugin.useSVGTransformAttr = true
 
     const tl = new TimelineMax(tmaxOptionsGlobal)
-    const path = '#animate-svg *'
+    const path = '#animate-svg svg *'
     const staggerVal = 0.0125
-    const duration = 0.75
+    const duration = 3
 
     $.each($(path), function () {
       tl.set($(this), {
@@ -77,7 +117,7 @@ export default class Member extends Vue {
 
     tl.staggerTo(path, duration, staggerPptsTo, staggerVal)
 
-    const $svg = $('#animate-svg')
+    const $svg = $('#animate-svg svg')
     $svg.hover(
       function () {
         tl.timeScale(0.15)
@@ -91,6 +131,11 @@ export default class Member extends Vue {
       return Math.random() * (max - min) + min
     }
   }
+
+  activated() {
+    this.svgAnimation()
+    document.getElementById('video').play()
+  }
 }
 </script>
 
@@ -102,20 +147,14 @@ export default class Member extends Vue {
   box-sizing: border-box;
   mix-blend-mode: darken;
 
-  &__inner {
-    display: none;
-
-    &.on {
-      display: block;
-    }
-  }
-
   &__inner,
   &__list {
     max-width: 800px;
+    padding: 0 50px;
     position: relative;
     margin: 0 auto;
     z-index: 10;
+    box-sizing: border-box;
 
     > *:not(.video) {
       position: relative;
@@ -125,15 +164,19 @@ export default class Member extends Vue {
 
   &__name {
     height: 50px;
-    padding-top: 70px;
+    padding-top: 30px;
 
-    path {
-      fill: $main_color;
+    svg {
+      height: 100%;
+      path {
+        fill: $main_color;
+      }
     }
   }
 
   &__class {
     font-size: 1rem;
+    color: $gold;
     margin-top: 10px;
   }
 
@@ -145,15 +188,13 @@ export default class Member extends Vue {
   }
 
   video {
-    height: 400px;
+    width: 1500px;
     position: absolute;
-    right: -100px;
-    top: 0;
+    right: -600px;
+    top: -100px;
+    bottom: 0;
     z-index: 0;
-
-    &.choro {
-      height: 600px;
-    }
+    margin: auto;
   }
 
   &__list {
@@ -193,12 +234,17 @@ export default class Member extends Vue {
     }
 
     &__name {
-      padding-top: get_vw(20);
-      height: get_vw(30);
+      padding-top: get_vw(10);
+      height: get_vw(40);
+    }
+
+    &__class {
+      margin-top: get_vw(15);
     }
 
     &__description {
       max-width: 100%;
+      margin-top: get_vw(15);
     }
 
     &__list {

@@ -7,7 +7,7 @@
     span(v-html='$route.query.month')
     | 月
   article.album
-    img.album__img(:src='getPhoto.imgSrc')
+    div.album__img(:style="{ backgroundImage: 'url(' + getPhoto.imgSrc + ')' }")
     p.album__message(v-html='getPhoto.message')
     p.album__name(v-html='getPhoto.name')
   .blocks-wrap(v-if='getPhotos.length > 0 && $device.isDesktopOrTablet')
@@ -204,8 +204,11 @@ export default class Album extends Vue {
     border: 2px solid $main_color;
     &__img {
       width: 100%;
+      height: 400px;
       vertical-align: top;
       border-radius: 5px 5px 0 0;
+      background-size: cover;
+      background-position: center;
     }
     &__message {
       font-size: 1.2rem;
@@ -242,25 +245,28 @@ export default class Album extends Vue {
     }
 
     .album {
-      padding: 0 0 10px;
-      margin-top: 15px;
+      padding: 0 0 get_vw(10);
+      margin-top: get_vw(15);
+      &__img {
+        height: get_vw(200);
+      }
       &__message,
       &__name {
-        padding: 0 5px;
+        padding: 0 get_vw(5);
         box-sizing: border-box;
       }
       &__message {
         font-size: get_vw(12);
-        margin-top: 10px;
+        margin-top: get_vw(10);
       }
       &__name {
         font-size: get_vw(10);
-        margin-top: 5px;
+        margin-top: get_vw(5);
       }
     }
 
     .blocks-wrap {
-      margin-top: 40px;
+      margin-top: get_vw(40);
     }
   }
 }
