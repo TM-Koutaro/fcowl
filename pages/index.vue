@@ -1,13 +1,13 @@
 <template lang="pug">
 #top
   Header
+  section
+    h2 Members Introduction
+    Member
   section#blog
     h2
       BlogLogo(data-text='地下放送オウル・ウォッチ')
     BlogSwiper
-  section
-    h2 Members Introduction
-    Member
   section.blocks
     h2 Peko Studio
     template(v-if='$device.isDesktopOrTablet')

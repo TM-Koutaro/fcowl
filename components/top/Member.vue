@@ -37,7 +37,7 @@ export default class Member extends Vue {
           description:
             'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
           video: 'movie/pau.mp4',
-          img: 'img/member_peko.png'
+          img: 'img/pau.png'
         },
         {
           id: 'tetsu',
@@ -45,7 +45,7 @@ export default class Member extends Vue {
           description:
             'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
           video: 'movie/pau.mp4',
-          img: 'img/member_peko.png'
+          img: 'img/pau.png'
         },
         {
           id: 'peko',
@@ -53,7 +53,7 @@ export default class Member extends Vue {
           description:
             'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
           video: 'movie/pau.mp4',
-          img: 'img/member_peko.png'
+          img: 'img/peko.png'
         },
         {
           id: 'seto',
@@ -61,7 +61,7 @@ export default class Member extends Vue {
           description:
             'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
           video: 'movie/pau.mp4',
-          img: 'img/member_peko.png'
+          img: 'img/pau.png'
         },
         {
           id: 'pau',
@@ -69,7 +69,7 @@ export default class Member extends Vue {
           description:
             'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
           video: 'movie/pau.mp4',
-          img: 'img/member_peko.png'
+          img: 'img/pau.png'
         }
       ]
     }
@@ -80,12 +80,12 @@ export default class Member extends Vue {
     this.memberIndex = i
     setTimeout(() => {
       this.svgAnimation()
-      document.getElementById('animate-svg').style.opacity = 1
       document.getElementById('video').play()
-    }, 500)
+    }, 100)
   }
 
   svgAnimation() {
+    document.getElementById('animate-svg').style.opacity = 1
     const tmaxOptionsGlobal = {
       yoyo: true
     }
@@ -165,6 +165,7 @@ export default class Member extends Vue {
   &__name {
     height: 50px;
     padding-top: 30px;
+    opacity: 0;
 
     svg {
       height: 100%;
