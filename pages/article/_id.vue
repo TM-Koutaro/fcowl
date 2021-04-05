@@ -269,7 +269,7 @@ export default class Article extends Vue {
       }
     }
     &__writer {
-      height: 350px;
+      height: 250px;
       position: fixed;
       right: 20px;
       z-index: 100;
