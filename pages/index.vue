@@ -2,7 +2,7 @@
 #top
   Header
   section
-    h2 Members Introduction
+    h2 ABOUT THIS SITE
     Member
   section#blog
     h2

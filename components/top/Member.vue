@@ -2,22 +2,11 @@
 .member
   .member__inner
     p#animate-svg.member__name
-      MemberChoro(v-if='memberList[memberIndex].id === "choro"')
-      MemberTetsu(v-if='memberList[memberIndex].id === "tetsu"')
-      MemberPeko(v-if='memberList[memberIndex].id === "peko"')
-      MemberSeto(v-if='memberList[memberIndex].id === "seto"')
-      MemberPau(v-if='memberList[memberIndex].id === "pau"')
+      MemberPau
     p.member__class {{ memberList[memberIndex].class }}
     p.member__description {{ memberList[memberIndex].description }}
     video#video.video(autoplay, loop, muted)
       source(:src='memberList[memberIndex].video')
-  ul.member__list
-    li(
-      v-for='(member, index) in memberList',
-      :key='member.id',
-      @click='test(index)'
-    )
-      img(:src='member.img')
 </template>
 
 <script>
@@ -32,42 +21,10 @@ export default class Member extends Vue {
       memberIndex: 0,
       memberList: [
         {
-          id: 'choro',
-          class: 'サイト管理者',
-          description:
-            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
-          video: 'movie/pau.mp4',
-          img: 'img/pau.png'
-        },
-        {
-          id: 'tetsu',
-          class: 'サイト管理者',
-          description:
-            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
-          video: 'movie/pau.mp4',
-          img: 'img/pau.png'
-        },
-        {
-          id: 'peko',
-          class: 'サイト管理者',
-          description:
-            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
-          video: 'movie/pau.mp4',
-          img: 'img/peko.png'
-        },
-        {
-          id: 'seto',
-          class: 'サイト管理者',
-          description:
-            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
-          video: 'movie/pau.mp4',
-          img: 'img/pau.png'
-        },
-        {
           id: 'pau',
           class: 'サイト管理者',
           description:
-            'ウルダハの近衛兵団「銀冑団」の騎士たちは、忠誠を誓う王家を守るため、長い歴史の中で技を磨き上げてきた。白銀の甲冑で身を固め、大盾と騎士剣を手に戦いに身を投じる彼らは、剣術だけではなく護衛術にも長け、主君の命を断固として守り抜く。彼ら「ナイト」の戦技を学べば、鉄壁の守護者として戦場に君臨できることだろう。',
+            'このサイトは元々 FinalFantasy 14 の FreeCompany のために作られたサイトです。現在は Nuxt.js を使用した例として残しています。',
           video: 'movie/pau.mp4',
           img: 'img/pau.png'
         }
@@ -146,6 +103,7 @@ export default class Member extends Vue {
   font-weight: bold;
   box-sizing: border-box;
   mix-blend-mode: darken;
+  margin-bottom: 200px;
 
   &__inner,
   &__list {
@@ -178,7 +136,7 @@ export default class Member extends Vue {
   &__class {
     font-size: 1rem;
     color: $gold;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   &__description {
@@ -227,6 +185,8 @@ export default class Member extends Vue {
   }
 
   @include mq-down(md) {
+    margin-bottom: 0;
+
     &__inner,
     &__list {
       max-width: 100%;
